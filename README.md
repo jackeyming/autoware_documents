@@ -15,4 +15,4 @@
 -->
 
 # Pixkit Documentation
-- 该仓库包含了[MkDocs源文件，内容呈现在[挂载在github服务器上的页面.
+- [文档](https://jackeyming.github.io/autoware_documents/)

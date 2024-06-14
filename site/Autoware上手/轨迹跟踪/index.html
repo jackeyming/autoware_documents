@@ -1,0 +1,2835 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://autowarefoundation.github.io/autoware-documentation/Autoware%E4%B8%8A%E6%89%8B/%E8%BD%A8%E8%BF%B9%E8%B7%9F%E8%B8%AA/">
+      
+      
+        <link rel="prev" href="../%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E6%A3%80%E6%B5%8B/">
+      
+      
+        <link rel="next" href="../%E8%BD%A6%E8%BE%86%E6%8E%A5%E5%8F%A3/">
+      
+      
+      <link rel="icon" href="../../assets/images/pixmoving.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+    
+    
+      
+        <title>轨迹跟踪 - Pixkit Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Pixkit Documentation" class="md-header__button md-logo" aria-label="Pixkit Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pixkit Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              轨迹跟踪
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pixmoving-moveit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  介绍
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/" class="md-tabs__link">
+          
+  
+  硬件检查
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%9C%B0%E5%9B%BE/" class="md-tabs__link">
+          
+  
+  地图
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E5%90%AF%E5%8A%A8autoware/" class="md-tabs__link">
+          
+  
+  Autoware上手
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="md-tabs__link">
+          
+  
+  Pix底盘使用手册
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/" class="md-tabs__link">
+          
+  
+  传感器标定
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%94%AF%E6%8C%81/" class="md-tabs__link">
+          
+  
+  支持
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pixkit Documentation" class="md-nav__button md-logo" aria-label="Pixkit Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Pixkit Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pixmoving-moveit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    硬件检查
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            硬件检查
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/IPC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/LiDAR/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/CAMERA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    camera
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/GNSS%E2%80%94CHC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS—CHC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/GNSS%E2%80%94FP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS—FP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/Ultra_sonic_radar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    超声波雷达
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    地图
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            地图
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9C%B0%E5%9B%BE/%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云地图制作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9C%B0%E5%9B%BE/lanelet2%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lanelet2地图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Autoware上手
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Autoware上手
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%90%AF%E5%8A%A8autoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    启动Autoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88%E5%AE%9A%E4%BD%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多传感器融合定位
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%BA%E4%BA%8ELiDAR%E7%9A%84%E6%84%9F%E7%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基于LiDAR的感知
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%A6%E9%81%93%E5%86%85%E8%A1%8C%E9%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    车道内行驶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%8A%A8%E6%B3%8A%E8%BD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自动泊车
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    交通信号灯检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    轨迹跟踪
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    轨迹跟踪
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据交互
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据交互">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      话题订阅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      话题发布
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      参数配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="参数配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      关键配置参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细配置参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      四轮转向车辆运动学模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四轮转向车辆运动学模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于笛卡尔坐标系的四轮转向运动学模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于道路坐标系的四轮转向运动学模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制算法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于道路坐标系下车辆纵向控制算法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于道路坐标系下车辆横向控制算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基于道路坐标系下车辆横向控制算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      MPC算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MPC算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择控制变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      运动模型线性化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建误差模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      误差模型离散化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型预测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建带约束的二次规划问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%A6%E8%BE%86%E6%8E%A5%E5%8F%A3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Pix底盘接口
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pix底盘使用手册
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Pix底盘使用手册
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    产品介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用与开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E8%BD%A6%E8%BE%86%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    车辆安全机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E5%BA%95%E7%9B%98%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    底盘性能参数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常见问题处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    日常维护与注意事项
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E5%94%AE%E5%90%8E%E4%B8%8E%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    售后与技术支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    传感器标定
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            传感器标定
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/%E6%A0%87%E5%AE%9A%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标定工具集合安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/camera%E5%86%85%E5%8F%82%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    camera内参标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/LiDAR-camera%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR-camera标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/IMU%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/LiDAR-IMU%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR-IMU标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/LiDAR-LiDAR%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR-LiDAR标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    支持
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            支持
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%94%AF%E6%8C%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    备份刷写系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            备份刷写系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%94%AF%E6%8C%81/%E5%A4%87%E4%BB%BD%E5%88%B7%E5%86%99%E7%B3%BB%E7%BB%9F/%E5%A4%87%E4%BB%BD%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    备份系统镜像
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%94%AF%E6%8C%81/%E5%A4%87%E4%BB%BD%E5%88%B7%E5%86%99%E7%B3%BB%E7%BB%9F/%E5%88%B7%E5%86%99%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刷写系统镜像
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      概述
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      文件结构
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据交互
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="数据交互">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      话题订阅
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      话题发布
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      参数配置
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="参数配置">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      关键配置参数
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      详细配置参数
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      四轮转向车辆运动学模型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="四轮转向车辆运动学模型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于笛卡尔坐标系的四轮转向运动学模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于道路坐标系的四轮转向运动学模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制算法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于道路坐标系下车辆纵向控制算法
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      基于道路坐标系下车辆横向控制算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="基于道路坐标系下车辆横向控制算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#mpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      MPC算法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="MPC算法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择控制变量
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      运动模型线性化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建误差模型
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      误差模型离散化
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      模型预测
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      构建带约束的二次规划问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="_1">轨迹跟踪</h1>
+<blockquote>
+<p>本文档将介绍轨迹跟踪模块的文件结构，各通讯节点之间的数据交互，以及启动文件和算法的参数配置。 </p>
+</blockquote>
+<h2 id="_2">概述</h2>
+<p>轨迹跟踪模块是Autoware中的核心模块，它负责将轨迹规划模块下发的轨迹点作为参考轨迹，通过横向和纵向控制器，实现车辆在轨迹上的跟踪。   </p>
+<h2 id="_3">文件结构</h2>
+<p>轨迹跟踪模块位于<a href="https://github.com/autowarefoundation/autoware.universe/tree/main/control">autoware.universe/control</a>，结构如下:     </p>
+<table>
+<thead>
+<tr>
+<th>文件目录</th>
+<th>简要说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autonomous_emergency_braking</td>
+<td>自动紧急制动(AEB)，防止预测轨迹(由横向控制器提供)与障碍物发生碰撞</td>
+</tr>
+<tr>
+<td>control_performance_analysis</td>
+<td>控制性能分析，分析轨迹跟踪控制模块的跟踪性能并监控车辆的行驶状态</td>
+</tr>
+<tr>
+<td>external_cmd_selector</td>
+<td>外部命令选择器，根据输入指令与当前模式，切换车辆模式（遥控模式/自动驾驶模式）</td>
+</tr>
+<tr>
+<td>joy_controller</td>
+<td>手柄控制器，将遥控器消息转换为autoware所需要车辆控制命令（例如：转向角，档位，转向信号，启动键等）</td>
+</tr>
+<tr>
+<td>mpc_lateral_controller</td>
+<td>mpc横向控制器，线性模型预测控制（MPC）算法的实现。它将生成横向控制指令（转向角和转向速率）来跟踪路径，并使用车辆模型来模拟控制命令产生的轨迹。</td>
+</tr>
+<tr>
+<td>obstacle_collision_checker</td>
+<td>障碍物碰撞检查器，检查由横向控制器生成预测轨迹的对障碍物碰撞检测，并在发现碰撞时发布诊断错误</td>
+</tr>
+<tr>
+<td>operation_mode_transition_manager</td>
+<td>操作模式转换管理器，负责管理 Autoware 系统的不同操作模式。可能的模式是：<code>Autonomous</code>，<code>Local</code>，<code>Remote</code>，'<code>Stop</code>',</td>
+</tr>
+<tr>
+<td>pid_longitudinal_controller</td>
+<td>PID纵向控制器，将Planner模块下发轨迹点速度作为参考速度，使用PID算法计算车辆加速度控制信号，以实现在通过目标轨迹时达到指定的目标速度。</td>
+</tr>
+<tr>
+<td>pure_pursuit</td>
+<td>纯追踪横向控制器，纯跟踪(pure_pursuit)算法的实现，它将生成横向控制指令（转向角和转向速率）来跟踪路径。</td>
+</tr>
+<tr>
+<td>shift_decider</td>
+<td>档位决策器，根据有跟踪控制器输出的控制指令来确定档位大小</td>
+</tr>
+<tr>
+<td>trajectory_follower_base</td>
+<td>轨迹跟踪控制器接口，为<code>trajectory_follower_node</code>提供横向和纵向的控制器提供统一规范的接口</td>
+</tr>
+<tr>
+<td>trajectory_follower_node</td>
+<td>轨迹跟踪控制器节点，它是在派生自<code>trajectory_follower_base</code>的控制器类中实现的功能节点，生成控制指令去跟踪参考轨迹</td>
+</tr>
+<tr>
+<td>vehicle_cmd_gate</td>
+<td>车辆命令油门，从紧急处理程序、计划模块、外部控制器获取信息并向车辆发送消息的包</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_4">数据交互</h2>
+<h4 id="_5">话题订阅</h4>
+<table>
+<thead>
+<tr>
+<th>话题名称</th>
+<th>消息类型</th>
+<th>订阅节点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/autoware/state</td>
+<td>autoware_auto_system_msgs/msg/AutowareState</td>
+<td>shift_decider</td>
+</tr>
+<tr>
+<td>/control/command/control_cmd</td>
+<td>autoware_auto_control_msgs/msg/AckermannControlCommand</td>
+<td>operation_mode_transition_manager</td>
+</tr>
+<tr>
+<td>/control/gate_mode_cmd</td>
+<td>tier4_control_msgs/msgs/GateMode</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/shift_decider/gear_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/GearCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/control_cmd</td>
+<td>autoware_auto_control_msgs/msg/AckermannControlCommand</td>
+<td>shift_decider</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/lateral/predicted_trajectory</td>
+<td>autoware_auto_planning_msgs/msg/Trajectory</td>
+<td>autonomous_emergency_braking<br> lane_departure_checker<br> obstacle_collision_checker<br></td>
+</tr>
+<tr>
+<td>/control/vehicle_cmd_gate/operation_mode</td>
+<td>autoware_adapi_v1_msgs/msg/OperationModeState</td>
+<td>operation_mode_transition_manager</td>
+</tr>
+<tr>
+<td>/external/selected/control_cmd</td>
+<td>autoware_auto_control_msgs/msg/AckermannControlCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/external/selected/hazard_lights_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/HazardLightsCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/external/selected/gear_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/GearCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/external/selected/heartbeat</td>
+<td>tier4_external_api_msgs/msg/Heartbeat</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/localization/acceleration</td>
+<td>geometry_msgs/msgs/AccelWithCovarianceStamped</td>
+<td>trajectory_follower_node<br> vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/localization/kinematic_state</td>
+<td>nav_msgs/msgs/Odometry</td>
+<td>autonomous_emergency_braking<br> lane_departure_checker<br> obstacle_collision_checker<br> operation_mode_transition_manager<br>  trajectory_follower_node<br> vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/map/vector_map</td>
+<td>autoware_auto_mapping_msgs/msg/HADMapBin</td>
+<td>lane_departure_checker<br> obstacle_collision_checker</td>
+</tr>
+<tr>
+<td>/perception/obstacle_segmentation/pointcloud</td>
+<td>sensor_msgs/msg/PointCloud2</td>
+<td>autonomous_emergency_braking<br> obstacle_collision_checker</td>
+</tr>
+<tr>
+<td>/planning/hazard_lights_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/HazardLightsCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/planning/mission_planning/route</td>
+<td>autoware_auto_planning_msgs/msg/LaneletRoute</td>
+<td>lane_departure_checker<br> obstacle_collision_checker</td>
+</tr>
+<tr>
+<td>/planning/scenario_planning/trajectory</td>
+<td>autoware_auto_planning_msgs/msg/Trajectory</td>
+<td>trajectory_follower_node<br> obstacle_collision_checker<br> operation_mode_transition_manager <br> lane_departure_checker</td>
+</tr>
+<tr>
+<td>/planning/turn_indicators_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/TurnIndicatorsCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/sensing/imu/imu_data</td>
+<td>sensor_msgs/msg/Imu</td>
+<td>autonomous_emergency_braking</td>
+</tr>
+<tr>
+<td>/system/emergency/control_cmd</td>
+<td>autoware_auto_control_msgs/msg/AckermannControlCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/system/emergency/gear_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/GearCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/system/emergency/hazard_lights_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/HazardLightsCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/system/fail_safe/mrm_state</td>
+<td>autoware_adpi_v1_msgs/msgs/MrmState</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/system/operation_mode/state</td>
+<td>autoware_adpi_v1_msgs/msgs/OperationModeState</td>
+<td>vehicle_cmd_gate<br> trajectory_follower_node</td>
+</tr>
+<tr>
+<td>/vehicle/status/control_mode</td>
+<td>autoware_auto_vehicle_msgs/msg/ControlMoedReport</td>
+<td>operation_mode_transition_manager</td>
+</tr>
+<tr>
+<td>/vehicle/status/gear_status</td>
+<td>autoware_auto_vehicle_msgs/msg/GearReport</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/vehicle/status/steering_status</td>
+<td>autoware_auto_vehicle_msgs/msgs/SteeringReport</td>
+<td>operation_mode_transition_manager<br> trajectory_follower_node<br> vehicle_cmd_gate<br></td>
+</tr>
+<tr>
+<td>/vehicle/status/velocity_status</td>
+<td>autoware_auto_vehicle_msgs/msgs/VelocityReport</td>
+<td>autonomous_emergency_braking</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_6">话题发布</h4>
+<table>
+<thead>
+<tr>
+<th>话题名称</th>
+<th>消息类型</th>
+<th>发布节点</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/api/autoware/get/engage</td>
+<td>autoware_auto_vehicle_msgs/msg/Engage</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/api/autoware/get/emergency</td>
+<td>autoware_auto_vehicle_msgs/msg/Emergency</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/command/emergency_cmd</td>
+<td>tire4_vehicle_msgs/msg/VehicleEmergencyStamped</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/command/control_cmd</td>
+<td>autoware_auto_control_msgs/msg/AckermannControlCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/command/gear_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/GearCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/command/turn_indicators_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/TurnIndicatorsCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/command/hazard_lights_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/HazardLightsCommand</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/current_gate_mode</td>
+<td>tire4_control_msgs/msg/GateMode</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+<tr>
+<td>/control/shift_decider/gear_cmd</td>
+<td>autoware_auto_vehicle_msgs/msg/GearCommand</td>
+<td>shift_decider</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/control_cmd</td>
+<td>autoware_auto_control_msgs/msg/AckermannControlCommand</td>
+<td>trajectory_follower_node</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/lateral/predicted_trajectory</td>
+<td>autoware_auto_planning_msgs/msg/Trajectory</td>
+<td>trajectory_follower_node</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/lateral/diagnostic</td>
+<td>tier4_debug_msgs/Float32MultiArrayStamped</td>
+<td>trajectory_follower_node</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/longitudinal/slope_angle</td>
+<td>tier4_debug_msgs/Float32MultiArrayStamped</td>
+<td>trajectory_follower_node</td>
+</tr>
+<tr>
+<td>/control/trajectory_follower/longitudinal/diagnostic</td>
+<td>tier4_debug_msgs/Float32MultiArrayStamped</td>
+<td>trajectory_follower_node</td>
+</tr>
+<tr>
+<td>/control/vehicle_cmd_gate/operation_mode</td>
+<td>autoware_adapi_v1_msgs/msgs/OperationModeState</td>
+<td>vehicle_cmd_gate</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_7">参数配置</h2>
+<p>该模块各节点的配置文件位置：<a href="https://github.com/autowarefoundation/autoware_launch/tree/main/autoware_launch/config/control">autoware_launch/config/control</a>                                                                                                                     </p>
+<blockquote>
+<p>注意：autoware.universe/control/*/config具有与autoware_launch/config/control相同的配置文件，但默认是从autoware_launch/config/control加载的</p>
+</blockquote>
+<h4 id="_8">关键配置参数</h4>
+<table>
+<thead>
+<tr>
+<th>参数名称</th>
+<th>参数类型</th>
+<th>参数描述</th>
+<th>可选值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>lateral_controller_mode</td>
+<td>string</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/launch/components/tier4_control_component.launch.xml">启动时</a>，加载指定的横向跟踪控制器</td>
+<td><code>mpc</code>（默认），<code>pure_pursuit</code></td>
+</tr>
+<tr>
+<td>mpc_weight_steering_input</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示转向输入权重，当权重增大，转向更平稳，但会使得车辆与参考轨迹之间的状态误差增大</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>mpc_weight_lat_error</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示横向误差权重，当权重越大，车辆更贴近参考轨迹，但容易发生振荡</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>mpc_weight_heading_error</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示航向误差权重，当权重越大，车辆与轨迹平行度更高，但可能会使得横向误差收敛速度降低</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>mpc_weight_terminal_lat_error</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示末端处的横向误差，当权重越大，车辆末端终点的横向误差更小，但可能影响行使过程的稳定性</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>mpc_weight_terminal_heading_error</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示末端处的航向误差，当权重越大，车辆末端终点的航向误差更小，但可能影响行使过程的稳定性</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>mpc_prediction_horizon</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示预测时间窗口，该参数越大，车辆的预测时间越长，提高跟踪性能，但计算量会增大</td>
+<td>0~inf 单位为秒</td>
+</tr>
+<tr>
+<td>mpc_prediction_dt</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/lateral/mpc.param.yaml">mpc</a>中表示预测时间间隔，该参数越小，车辆的预测时间间隔越小，提高跟踪性能，但计算量会增大</td>
+<td>0~inf 单位为秒</td>
+</tr>
+<tr>
+<td>kp</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/longitudinal/pid.param.yaml">pid</a>中表示纵向误差的权重，该参数越大，误差越小，但过大会使得电机输出过大，需要合理设置范围</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>ki</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/longitudinal/pid.param.yaml">pid</a>中表示纵向累积误差的权重，该参数会使得纵向误差越来越小，需要合理设置范围</td>
+<td>0~inf</td>
+</tr>
+<tr>
+<td>kd</td>
+<td>double</td>
+<td>在<a href="https://github.com/autowarefoundation/autoware_launch/blob/main/autoware_launch/config/control/trajectory_follower/longitudinal/pid.param.yaml">pid</a>中表示纵向误差的变化率权重，该参数可以减少纵向误差的的振荡，需要合理设置范围</td>
+<td>0~inf</td>
+</tr>
+</tbody>
+</table>
+<h4 id="_9">详细配置参数</h4>
+<p>关于各节点详细参数配置，如下所示:  </p>
+<table>
+<thead>
+<tr>
+<th>节点名称</th>
+<th>文件位置</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autonomous_emergency_braking</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/autonomous_emergency_braking/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/autonomous_emergency_braking/#parameters</a></td>
+</tr>
+<tr>
+<td>control_performance_analysis</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/control_performance_analysis/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/control_performance_analysis/#parameters</a></td>
+</tr>
+<tr>
+<td>joy_controller</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/joy_controller/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/joy_controller/#parameters</a></td>
+</tr>
+<tr>
+<td>lane_departure_checker</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/lane_departure_checker/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/lane_departure_checker/#parameters</a></td>
+</tr>
+<tr>
+<td>mpc_lateral_controller</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/mpc_lateral_controller/#parameter-description">https://autowarefoundation.github.io/autoware.universe/main/control/mpc_lateral_controller/#parameter-description</a></td>
+</tr>
+<tr>
+<td>obstacle_collision_checker</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/obstacle_collision_checker/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/obstacle_collision_checker/#parameters</a></td>
+</tr>
+<tr>
+<td>operation_mode_transition_manager</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/operation_mode_transition_manager/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/operation_mode_transition_manager/#parameters</a></td>
+</tr>
+<tr>
+<td>pid_longitudinal_controller</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/pid_longitudinal_controller/#parameter-description">https://autowarefoundation.github.io/autoware.universe/main/control/pid_longitudinal_controller/#parameter-description</a></td>
+</tr>
+<tr>
+<td>pure_pursuit</td>
+<td>None</td>
+</tr>
+<tr>
+<td>shift_decider</td>
+<td>None</td>
+</tr>
+<tr>
+<td>vehicle_cmd_gate</td>
+<td><a href="https://autowarefoundation.github.io/autoware.universe/main/control/vehicle_cmd_gate/#parameters">https://autowarefoundation.github.io/autoware.universe/main/control/vehicle_cmd_gate/#parameters</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="_10">四轮转向车辆运动学模型</h2>
+<p>具备四轮转向结构的车辆比一般常见的前轮转向结构的车辆更灵活，与同尺寸前轮转向结构的车辆相比，具有更小的转向半径，这意味着它能在更狭小的空间进行移动或转向。在高速道路行驶时，具备四轮转向结构的车辆可以通过调整后轮的转向，使车辆获得更大的转弯半径以提高车身的稳定性</p>
+<h3 id="_11">基于笛卡尔坐标系的四轮转向运动学模型</h3>
+<p><img alt="four-wheel-steering-model" src="../images/four-wheel-steering-model.png"></p>
+<p>根据上图所示，<span class="arithmatex">\(A\)</span> 、<span class="arithmatex">\(B\)</span>、<span class="arithmatex">\(C\)</span>分别表示前后轮中心以及车辆重心。<span class="arithmatex">\(V\)</span>表示车辆的速度，<span class="arithmatex">\(\ell_f\)</span>、<span class="arithmatex">\(\ell_r\)</span>
+表示前轮和后轮分别到车辆重心的距离，<span class="arithmatex">\(\delta_f\)</span>、<span class="arithmatex">\(\delta_r\)</span>表示分别前轮转角与后轮转角。<span class="arithmatex">\(\psi\)</span>表示车辆航向角，<span class="arithmatex">\(\beta\)</span>表示车辆侧偏角。<span class="arithmatex">\(O\)</span>表示车辆的旋转中心，<span class="arithmatex">\(R\)</span>表示车辆的旋转半径。
+将车辆当前速度<span class="arithmatex">\(V\)</span>沿全局坐标系的方向进行分解，记为<span class="arithmatex">\(\dot{X}\)</span>和<span class="arithmatex">\(\dot{Y}\)</span>，其中<span class="arithmatex">\(\dot{X}\)</span>表示车辆的沿全局坐标方向下的速度，<span class="arithmatex">\(\dot{Y}\)</span>表示车辆沿全局坐标方向下的速度，那么有：</p>
+<div style="text-align: right;">
+\[
+\begin{align}
+\dot{X}=V \cos(\psi+\beta) \\
+\dot{Y}=V \sin(\psi+\beta)
+\end{align} 
+\tag{1.1}
+\]
+</div>
+
+<p>根据正弦定理，在<span class="arithmatex">\(\angle OCA\)</span>中有：
+$$
+\frac{\sin \left(\delta_f-\beta\right)}{\ell_f}=\frac{\sin \left(\frac{\pi}{2}-\delta_f\right)}{R} \tag{1.2}
+$$</p>
+<p>同理，在<span class="arithmatex">\(\angle OCB\)</span>中有：
+$$
+\frac{\sin \left(\beta-\delta_r\right)}{\ell_r}=\frac{\sin \left(\frac{\pi}{2}+\delta_r\right)}{R} \tag{1.3}
+$$</p>
+<p>根据积化和差公式对式(1.2)展开，有：
+$$
+\frac{\sin(\delta_f) \cos(\beta) - \cos(\delta_f) \sin(\beta)}{\ell_f} = \frac{\cos(\delta_f)}{R} \tag{1.4}
+$$</p>
+<p>同理，对式(1.3)展开，有：
+$$
+\frac{\sin(\beta) \cos(\delta_r) - \cos(\beta) \sin(\delta_r)}{\ell_r} = \frac{\cos(\delta_r)}{R} \tag{1.5}
+$$</p>
+<p>对等式(1.4)两边同时乘以 <span class="arithmatex">\(\frac{\ell_f}{\cos(\delta_f)}\)</span> 有：
+$$
+\tan(\delta_f) \cos(\beta) - \sin(\beta) = \frac{\ell_f}{R} \tag{1.6}
+$$</p>
+<p>对等式(1.5)两边同时乘以 <span class="arithmatex">\(\frac{\ell_r}{\cos(\delta_r)}\)</span> 有：
+$$
+\sin(\beta) - \cos(\beta) \tan(\delta_r) = \frac{\ell_r}{R} \tag{1.7}
+$$</p>
+<p>等式(1.6)与(1.7)相加，有：
+$$
+\cos(\beta)(\tan(\delta_f) - \tan(\delta_r)) = \frac{\ell_f + \ell_r}{R}  \tag{1.8}
+$$</p>
+<p>当车辆低速行驶时，车辆的角速度表示如下：
+$$
+\dot{\psi} =\frac{V}{R} \tag{1.9} 
+$$</p>
+<p>联合等式(1.8)和(1.9)，有： 
+$$
+\dot{\psi} = \frac{V\cos(\beta)}{\ell_f + \ell_r} (\tan(\delta_f) - \tan(\delta_r)) \tag{1.10}
+$$</p>
+<p>那么车辆的运动学方程可以表示为： </p>
+<div style="text-align: right;">
+\[
+\begin{aligned}
+\dot{X} &amp; =V \cos (\psi+\beta) \\
+\dot{Y} &amp; =V \sin (\psi+\beta) \\
+\dot{\psi} &amp; =\frac{V \cos (\beta)}{\ell_f+\ell_r}\left(\tan \left(\delta_f\right)-\tan \left(\delta_r\right)\right)
+\end{aligned} \tag{1.11}
+\]
+</div>
+
+<p>其中，<span class="arithmatex">\(\dot{X}\)</span>、<span class="arithmatex">\(\dot{Y}\)</span>、<span class="arithmatex">\(\dot{\psi}\)</span>分别表示车辆在全局坐标系下的沿<span class="arithmatex">\(X\)</span>轴、<span class="arithmatex">\(Y\)</span>轴方向的速度和航向角速度。<br>
+假设前后轮转向满足同角异向运动形式，即：当车辆发生转向时，前后轮的转角大小相等，方向相反。进一步地，当车辆在低速行驶时，几乎忽略侧滑角对车辆运动的影响，那么有<span class="arithmatex">\(\beta=0\)</span>，此时车辆的航向角与车辆的前进方向一致，基于以上假设，关于式<span class="arithmatex">\((1.11)\)</span>的车辆运动学方程可以简化为:</p>
+<div style="text-align: right;">
+\[
+\begin{align*}
+\dot{X} &amp; =V \cos (\psi) \\  
+\dot{Y} &amp; =V \sin (\psi) \\
+\dot{\psi} &amp; =\frac{2 V \tan \left(\delta_f\right)}{\ell_f+\ell_r} 
+\end{align*} \tag*{1.12}
+\]
+</div>
+
+<h3 id="_12">基于道路坐标系的四轮转向运动学模型</h3>
+<p>从前面的模型推导中不难看出，车辆运动状态的描述依赖于坐标系本身。当车辆行驶在道路时，我们更希望使用基于道路坐标来描述车辆运动状态。</p>
+<!-- 插入图片 -->
+<p><img alt="base_on_path_coordinate_of_four_wheel_steering_model" src="../images/base_on_path_coordinate_of_four_wheel_steering_model.png"> <br>
+根据上图所示， <span class="arithmatex">\(e_{ra}\)</span>表示车辆到道路的横向距离，<span class="arithmatex">\(\theta\)</span>表示车辆在全局坐标下的航向角，<span class="arithmatex">\(v\)</span>表示车辆当前速度，<span class="arithmatex">\(\delta\)</span>表示车辆的转向角。<span class="arithmatex">\(\left(c_x,c_y\right)\)</span>表示车辆在道路下的投影点（即车辆在道路下的最近点），<span class="arithmatex">\(\theta_p\)</span>表示该投影点的切线与全局坐标系的<span class="arithmatex">\(x\)</span>轴的夹角。<span class="arithmatex">\(s\)</span>表示道路的起点到投影点的距离，我们将使用<span class="arithmatex">\(\kappa(s)\)</span>表示道路投影点的曲率。
+车辆在道路投影点的曲率可以表述为：
+$$
+\kappa(s)=\frac{d\theta_p}{ds} \tag{2.1}
+$$
+将投影点沿切线方向与其垂直方向建立坐标系，其垂直方向到车辆的距离记为车辆相对于道路坐标下的横向距离<span class="arithmatex">\(e_{ra}\)</span>。其中，车辆相对道路坐标下的旋转角<span class="arithmatex">\(\theta_{e}\)</span>可以表示为：
+$$
+\theta_e = \theta - \theta_p \tag{2.2}
+$$</p>
+<p>因此，车辆的在道路坐标下的状态变量可以用 <span class="arithmatex">\(\begin{bmatrix} s &amp; e_{ra} &amp; \theta_e \end{bmatrix} ^ \mathrm{T}\)</span> 来表示。</p>
+<p>根据式<span class="arithmatex">\((2.1)\)</span>，求<span class="arithmatex">\(\theta_p\)</span>关于时间<span class="arithmatex">\(t\)</span>的导数，有：
+$$
+\dot{\theta}_p=\kappa(s)\dot{s} \tag{2.3}
+$$</p>
+<p>由文献[2]的分析可知:</p>
+<div style="text-align: right;">
+\[
+\dot{s}=v{\rm{cos}}(\theta_e)+\dot{\theta}_pe_{ra} \tag{2.4}
+\]
+</div>
+
+<p>将式(2.3)代入式(2.4)，整理得:
+$$ 
+\dot{s}=\frac{v\rm{cos}(\theta_e)}{1-e_{ra}\kappa(s)} \tag{2.5}
+$$ </p>
+<p>那么，车辆在frenet坐标系下的横向速度可以表示为:  </p>
+<div style="text-align: right;">
+\[
+\dot{e}_{ra}= v_{x_{car}} - v_{x_{traj}} \tag{2.6}
+\]
+</div>
+
+<p><span class="arithmatex">\(v_{x_{car}}\)</span>表示为车辆在frenet坐标系下的横向速度，<span class="arithmatex">\(v_{x_{traj}}\)</span>表示为（参考轨迹）投影点在frenet坐标下的横向速度，由于投影点在（frenet坐标下）垂直方向的速度为0。即：<span class="arithmatex">\(v_{x_{traj}}=0\)</span>，即：</p>
+<div style="text-align: right;">
+\[
+\dot{e}_{ra}=v{\rm{sin}}(\theta_e) \tag{2.7}
+\]
+</div>
+
+<p>根据式子(2.2)可知，车辆相对于道路的旋转角速度为：
+$$
+\dot{\theta}_e=\dot{\theta}-\dot{\theta}_p \tag{2.8}
+$$</p>
+<p>由式子(1.12)可知，<span class="arithmatex">\(\dot{\theta}=\frac{2 v \tan \left(\delta_f\right)}{L}，\)</span>由文献[2]可知，<span class="arithmatex">\(\dot{\theta}_p=\frac{ v \kappa(s){\rm{cos}}(\theta_e)}{1-e_{ra}\kappa(s)}\)</span>，将其代入到式(2.8)有：</p>
+<div style="text-align: right;">
+\[
+\dot{\theta}_e=\frac{2 v \tan \left(\delta_f\right)}{L}-\frac{ v \kappa(s){\rm{cos}}(\theta_e)}{1-e_{ra}\kappa(s)} \tag{2.9}
+\]
+</div>
+
+<p>联立上述公式就可以得到四轮转向的车辆运行学模型在道路坐标系下的方程为：</p>
+<div style="text-align: right;">
+\[
+\left[ \begin{array}{c} \dot{s} \\ \dot{e}_{ra} \\ \dot{\theta}_e  \end{array} \right] =\left[ \begin{array}{c} \frac{v\rm{cos}(\theta_e)}{1-e_{ra}\kappa(s)} \\ {v \rm{sin}(\theta_e)} \\ \frac{2 v \rm{tan}(\delta)}{L} - \frac{v \kappa(s)\rm{cos}(\theta_e)}{1-e_{ra}\kappa(s)} \end{array}  \right]\tag{2.10}
+\]
+</div>
+
+<h2 id="_13">控制算法</h2>
+<p>在Autoware.core/universe中，车辆控制分为横向控制与纵向控制。通过对控制问题的解耦，降低算法复杂度以满足控制性能的要求。纵向控制用于车辆速度的加减速。横向控制则用于车辆的转向控制。</p>
+<h2 id="_14">基于道路坐标系下车辆纵向控制算法</h2>
+<p>待完善</p>
+<h2 id="_15">基于道路坐标系下车辆横向控制算法</h2>
+<p>目前，车辆的横向控制算法基本分为三类： <br>
+    1. 基于几何的横向控制算法，如：Pure Pursuit，Stanley <br>
+    2. 基于模型的横向控制算法，如：LQR，MPC <br>
+    3. 基于机器学习的横向控制算法，如：强化学习，深度学习   </p>
+<p>在Autoware.core/universe中，提供了两种横向控制算法，分别是Pure Pursuit以及MPC，用户可以根据自己的需求选择合适的算法。</p>
+<h3 id="mpc">MPC算法</h3>
+<p>模型预测控制(MPC)算法，该算法的基本思想是通过对目标对象建立数学模型，然后利用模型的预测系统在某一未来时间段内的表现来进行优化控制，通过求解优化问题的最优解来获得当前的最佳输出。</p>
+<blockquote>
+<p>下面章节的内容是对mpc算法基本思想的概括与总结，可能与Autoware.core/universe中的mpc算法的代码实现存在差异，后面会对相关内容进行补充</p>
+</blockquote>
+<h4 id="_16">选择控制变量</h4>
+<p>由于参考轨迹已知，因此投影点处的角速度<span class="arithmatex">\(\dot{\theta}_p=v_{y_{traj}}k(s)\)</span>，<span class="arithmatex">\(v_{y_{traj}}\)</span>是投影点在参考轨迹处的纵向速度，<span class="arithmatex">\(k(s)\)</span>表示参考轨迹在投影点处的曲率。结合式(1.12)，式(2.3)，式(2.7)和式(2.8)，可以得到：</p>
+<div style="text-align: right;">
+\[             
+\left[ \begin{array}{c} \dot{e}_{ra} \\ \dot{\theta}_e  \end{array} \right]= \left[ \begin{array}{c} v\rm{sin}(\theta_e) \\ \frac{2v \tan(\delta)}{L} - v_{ref}k(s) \end{array} \right] \tag{3.1}
+\]
+</div>
+
+<p>记状态变量<span class="arithmatex">\(x=\begin{bmatrix}e_{ra} \\ \theta_e \end{bmatrix}\)</span>，输入变量<span class="arithmatex">\(u=\delta\)</span>，则状态方程可以表示为：
+$$
+\dot{x}=f(x,u) \tag{3.2}
+$$</p>
+<h4 id="_17">运动模型线性化</h4>
+<p>假设车辆在跟踪过程中，车辆在道路投影点的附近。通过对模型在投影点处进行一阶泰勒展开来线性化，得到：
+$$
+\dot{x}=f(x_{ref},u_{ref})+\frac{\partial f(x,u)}{\partial x}(x-x_{ref})+\frac{\partial f(x,u)}{\partial u}(u-u_{ref})
+ \tag{3.3}
+$$</p>
+<p>其中</p>
+<div style="text-align: right;">
+\[             
+\frac{\partial f(x,u)}{\partial x} = \begin{bmatrix} 0 &amp; vcos \theta_{e}\\  0 &amp; 0 \end{bmatrix}, \frac{\partial f(x,u)}{\partial u} = \begin{bmatrix} 0 \\ \frac{2v}{Lcos^2 \delta} \end{bmatrix} \tag{3.14}
+\]
+</div>
+
+<p>进一步，记<span class="arithmatex">\(A=\frac{\partial f(x,u)}{\partial x}\)</span>，<span class="arithmatex">\(B=\frac{\partial f(x,u)}{\partial u}\)</span>，则有：
+$$
+\dot{x}=f(x_{ref},u_{ref})+A(x-x_{ref})+B(u-u_{ref}) \tag{3.5}
+$$</p>
+<p>至此，我们得到四轮转向车辆的运动学线性状态方程。</p>
+<h4 id="_18">构建误差模型</h4>
+<p>我们可以在参考点处构建误差状态方程，即：    </p>
+<div style="text-align: right;">
+\[   
+\begin{align*}
+\dot{x}-\dot{x}_{ref} &amp;= f(x_{ref},u_{ref})+A(x-x_{ref})+B(u-u_{ref}) - f(x_{ref},u_{ref}) \\
+\dot{\bar{x}} &amp;= A\bar{x} +B\bar{u}
+\end{align*}  \tag{3.6}
+\]
+</div>
+
+<p>其中，<span class="arithmatex">\(\dot{\bar{x}}=\dot{x}-\dot{x}_{ref}\)</span>，<span class="arithmatex">\(\bar{x} = x-x_{ref}\)</span>，<span class="arithmatex">\(\bar{u} = u-u_{ref}\)</span></p>
+<h4 id="_19">误差模型离散化</h4>
+<p>对式子(3.6)进行离散化，我们可以得到： </p>
+<div style="text-align: right;">
+\[ 
+\bar{x}_{k+1}-\bar{x}_k = A\bar{x}_k + B\bar{u}_k \tag{3.7}
+\]
+</div>
+
+<p>整理得：
+$$
+\bar{x}_{k+1} = (I+AT)\bar{x}_k+BT\bar{u}_k \tag{3.8}
+$$</p>
+<p>记：<span class="arithmatex">\(\bar{A}=(I+AT)\)</span>，<span class="arithmatex">\(\bar{B}=BT\)</span>，则有：
+$$
+\bar{x}_{k+1}=\bar{A}\bar{x}_k+\bar{B}\bar{u}_k \tag{3.9}
+$$</p>
+<h4 id="_20">模型预测</h4>
+<p>由于我们的目标是预测车辆在未来的状态，因此我们需要对模型进行预测。假设预测未来n步的状态，则有：</p>
+<div style="text-align: right;">
+\[   
+\begin{bmatrix} \bar{x}_0 \\ \bar{x}_1 \\ \bar{x}_2 \\ \bar{x}_3 \\ \vdots \\ \bar{x}_n\end{bmatrix} = \begin{bmatrix}I \\ \bar{A} \\\bar{A}^2 \\\bar{A}^3 \\\vdots\\\bar{A}^n \\\end{bmatrix}\bar{x}_0 + \begin{bmatrix}0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\ \bar{B} &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\\bar{A}\bar{B} &amp; \bar{B} &amp; 0 &amp; \cdots &amp; 0\\\bar{A}^2\bar{B} &amp; \bar{A}\bar{B} &amp; \bar{B} &amp; \cdots &amp; 0\\\vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots\\\bar{A}^{n-1}\bar{B} &amp; \bar{A}^{n-2}\bar{B} &amp; \bar{A}^{n-3}\bar{B} &amp; \cdots &amp; \bar{B}\end{bmatrix}\begin{bmatrix} \bar{u}_0 \\ \bar{u}_1 \\ \bar{u}_2 \\ \vdots \\ \bar{u}_{n-1}\end{bmatrix} \tag{3.10}
+\]
+</div>
+
+<p>简记为：
+$$
+\tilde{X}=\tilde{A}\bar{x}_0+\tilde{B}\tilde{U} \tag{3.11}
+$$</p>
+<h4 id="_21">构建带约束的二次规划问题</h4>
+<p>我们的目标是通过构建一个最小化函数，在满足一定的物理约束下，使得当前的状态序列<span class="arithmatex">\(\bar{x}_{i},i\in[0,n]\)</span>与期望的状态序列<span class="arithmatex">\(\bar{x}_{i_{ref}},i\in[0,n]\)</span>的误差以及预测输入<span class="arithmatex">\(\bar{u}_j,j\in[0,n-1]\)</span>最小。</p>
+<div style="text-align: right;">
+\[ 
+J = min\sum_{i=0}^{n-1}((\bar{x}_i-\bar{x}_{i_{ref}})^\mathrm{T}Q(\bar{x}_i-\bar{x}_{i_{ref}}) + \bar{u}_{i}^\mathrm{T}R\bar{u}_{i}) + (\bar{x}_n-\bar{x}_{n_{ref}})^\mathrm{T}F(\bar{x}_n-\bar{x}_{n_{ref}}) \tag{3.12}
+\]
+</div>
+
+<p>由于<span class="arithmatex">\(\bar{x}_i\)</span>表示误差状态，不难看出，期望的误差状态<span class="arithmatex">\(\bar{x}_{i_{ref}}=0\)</span>。整理得：</p>
+<div style="text-align: right;">
+\[ 
+J =\text{min} \begin{bmatrix} \bar{x}_0 \\ \bar{x}_1 \\ \bar{x}_2 \\ \bar{x}_3 \\ \vdots \\ \bar{x}_n \end{bmatrix}^T \begin{bmatrix} Q &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; 0\\ 0 &amp; Q &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; 0 &amp; Q &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; 0 &amp; 0 &amp; Q &amp; \cdots &amp; 0 \\ \vdots &amp; \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; 0 &amp; \cdots &amp; F \end{bmatrix} \begin{bmatrix} \bar{x}_0 \\ \bar{x}_1 \\ \bar{x}_2 \\ \bar{x}_3 \\ \vdots \\ \bar{x}_n \end{bmatrix} + \begin{bmatrix} \bar{u}_0  \\ \bar{u}_1 \\ \bar{u}_2 \\ \vdots \\ \bar{u}_{n-1} \end{bmatrix}^T \begin{bmatrix} R &amp; 0 &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; R &amp; 0 &amp; \cdots &amp; 0 \\ 0 &amp; 0 &amp; R &amp; \cdots &amp; 0 \\ \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \\ 0 &amp; 0 &amp; 0 &amp; \cdots &amp; R\end{bmatrix} \begin{bmatrix} \bar{u}_0  \\ \bar{u}_1 \\ \bar{u}_2 \\ \vdots \\ \bar{u}_{n-1} \end{bmatrix} \tag{3.13}
+\]
+</div>
+
+<p>简记为：</p>
+<div style="text-align: right;">
+\[ 
+\begin{align*}
+J = \text{min} \quad &amp;  \mathbf{\tilde{X}}^\top \mathbf{\tilde{Q}} \mathbf{\tilde{X}} + \mathbf{\tilde{U}}^\top \mathbf{\tilde{R}} \mathbf{\tilde{U}} 
+\end{align*} \tag{3.14}
+\]
+</div>
+
+<p>现将式(3.14)转化为如下的标准形式：</p>
+<div class="arithmatex">\[
+\begin{align*}
+\text{minimize} \quad &amp; \frac{1}{2} \mathbf{x}^\top \mathbf{H} \mathbf{x} + \mathbf{c}^\top \mathbf{x} \\
+\text{subject to} \quad &amp; \mathbf{A} \mathbf{x} \leq \mathbf{b} \\
+&amp; \mathbf{G} \mathbf{x} = \mathbf{h}
+\end{align*}
+\]</div>
+<p>将式(3.11)代入到式(3.14)中并展开，有：     </p>
+<div style="text-align: right;">
+\[ 
+\begin{align*}
+J &amp;= \text{min} \quad \mathbf{\bar{x}_0^\top\tilde{A}^\top \tilde{Q} \tilde{A}\bar{x}_0 +\tilde{U}^\top\tilde{B}^\top \tilde{Q} \tilde{B}\tilde{U} + \bar{x}_0^\top\tilde{A}^\top \tilde{Q} \tilde{B}\tilde{U} + \tilde{U}^\top\tilde{B}^\top \tilde{Q} \tilde{A}\bar{x}_0 + \tilde{U}^\top\tilde{R}\tilde{U}}
+\end{align*} \tag{3.15}
+\]
+</div>
+
+<p>其中，<span class="arithmatex">\(\bar{x}_0^\top\tilde{A}^\top \tilde{Q} \tilde{A}\bar{x}_0\)</span>只与初始状态有关，因此可以看作常数<span class="arithmatex">\(C\)</span>，<span class="arithmatex">\(\tilde{U}^\top\tilde{B}^\top \tilde{Q} \tilde{A}\bar{x}_0\)</span>是<span class="arithmatex">\(\bar{x}_0^\top\tilde{A}^\top \tilde{Q} \tilde{B}\tilde{U}\)</span>的转置，而且是1xn维向量，两者相加的结果是<span class="arithmatex">\(2\bar{x}_0^\top\tilde{A}^\top\tilde{Q}\tilde{B}\tilde{U}\)</span>。综上所述，整理得：</p>
+<div style="text-align: right;">
+\[ 
+\begin{align*}
+J &amp;= \text{min} \quad \mathbf{ \frac{1}{2} \tilde{U}^\top (\tilde{B}^\top \tilde{Q} \tilde{B} + \tilde{R}) \tilde{U} + \bar{x}_0^\top\tilde{A}^\top\tilde{Q}\tilde{B}\tilde{U}}
+\end{align*} \tag{3.16}
+\]
+</div>
+
+<p>其中，<span class="arithmatex">\(H=\tilde{B}^\top \tilde{Q} \tilde{B} + \tilde{R}\)</span>，<span class="arithmatex">\(c^\top=\bar{x}_0^\top\tilde{A}^\top\tilde{Q}\tilde{B}\)</span>
+对预测输入增加不等式约束，那么有：</p>
+<div style="text-align: right;">
+\[ 
+\begin{aligned}
+&amp;min \quad \frac{1}{2} \tilde{U}^\top (\tilde{B}^\top \tilde{Q} \tilde{B} + \tilde{R}) \tilde{U} + \bar{x}_0^\top\tilde{A}^\top\tilde{Q}\tilde{B}\tilde{U} \\
+&amp;s.t. \quad \tilde{U}_{min} \leq \tilde{U} \leq \tilde{U}_{max} 
+\end{aligned} \tag{3.17}
+\]
+</div>
+
+<p>利用求解器对式(3.17)进行求解，得到的最优解直接作为车辆的控制信号下发到车辆控制单元中，实现车辆的横向控制。</p>
+<h2 id="_22">参考资料</h2>
+<p>[1]: Rajamani, Rajesh. Vehicle dynamics and control. Springer Science &amp; Business Media, 2011.<br>
+[2]: A. De Luca, G.Oriolo, and C. Samson.  Feedback control of anonholonomic car-like robot.  InRobot MotionPlanning and Control, pages 171–249. 1998</p></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

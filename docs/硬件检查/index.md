@@ -1,6 +1,8 @@
 # 硬件检查
 - 硬件安装线路接线图
     ![avatar](./image/IPC_picture/kit3.0自动驾驶硬件线路.png)
+## 视频
+- [autoware相关视频](https://youtu.be/2Zm7SuIPzcE)
 ## 目录
 - [IPC](./IPC.md)
 - [LiDAR](./LiDAR.md)

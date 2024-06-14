@@ -1,0 +1,3488 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://autowarefoundation.github.io/autoware-documentation/Autoware%E4%B8%8A%E6%89%8B/%E8%BD%A6%E8%BE%86%E6%8E%A5%E5%8F%A3/">
+      
+      
+        <link rel="prev" href="../%E8%BD%A8%E8%BF%B9%E8%B7%9F%E8%B8%AA/">
+      
+      
+        <link rel="next" href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/">
+      
+      
+      <link rel="icon" href="../../assets/images/pixmoving.png">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.26">
+    
+    
+      
+        <title>Pix底盘接口 - Pixkit Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.6543a935.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#pix" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Pixkit Documentation" class="md-header__button md-logo" aria-label="Pixkit Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Pixkit Documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Pix底盘接口
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="white" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="grey" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/pixmoving-moveit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  介绍
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/" class="md-tabs__link">
+          
+  
+  硬件检查
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E5%9C%B0%E5%9B%BE/" class="md-tabs__link">
+          
+  
+  地图
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E5%90%AF%E5%8A%A8autoware/" class="md-tabs__link">
+          
+  
+  Autoware上手
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="md-tabs__link">
+          
+  
+  Pix底盘使用手册
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/" class="md-tabs__link">
+          
+  
+  传感器标定
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../%E6%94%AF%E6%8C%81/" class="md-tabs__link">
+          
+  
+  支持
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Pixkit Documentation" class="md-nav__button md-logo" aria-label="Pixkit Documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Pixkit Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/pixmoving-moveit" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    硬件检查
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            硬件检查
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/IPC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IPC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/LiDAR/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/CAMERA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    camera
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/GNSS%E2%80%94CHC/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS—CHC
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/GNSS%E2%80%94FP/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    GNSS—FP
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E7%A1%AC%E4%BB%B6%E6%A3%80%E6%9F%A5/Ultra_sonic_radar/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    超声波雷达
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    地图
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            地图
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9C%B0%E5%9B%BE/%E7%82%B9%E4%BA%91%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    点云地图制作
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E5%9C%B0%E5%9B%BE/lanelet2%E5%9C%B0%E5%9B%BE/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lanelet2地图
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Autoware上手
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            Autoware上手
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%90%AF%E5%8A%A8autoware/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    启动Autoware
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%9A%E4%BC%A0%E6%84%9F%E5%99%A8%E8%9E%8D%E5%90%88%E5%AE%9A%E4%BD%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    多传感器融合定位
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%9F%BA%E4%BA%8ELiDAR%E7%9A%84%E6%84%9F%E7%9F%A5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基于LiDAR的感知
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%A6%E9%81%93%E5%86%85%E8%A1%8C%E9%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    车道内行驶
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%87%AA%E5%8A%A8%E6%B3%8A%E8%BD%A6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    自动泊车
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E4%BA%A4%E9%80%9A%E4%BF%A1%E5%8F%B7%E7%81%AF%E6%A3%80%E6%B5%8B/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    交通信号灯检测
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E8%BD%A8%E8%BF%B9%E8%B7%9F%E8%B8%AA/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    轨迹跟踪
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Pix底盘接口
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Pix底盘接口
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      注意
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      角色
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-command-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Command Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Command Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="输入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-command-node_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Command Node的输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vdrivectrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vDriveCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vbrakectrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vBrakeCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vsteerctrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vSteerCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vvehiclectrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vVehicleCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vwheelctrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vWheelCtrl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-parser-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Report Parser Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report Parser Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="输出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2adrivestafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aDriveStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2abrakestafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aBrakeStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2asteerstafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aSteerStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2avehicleworkstafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aVehicleWorkStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2apowerstafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aPowerStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2avehiclestafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aVehicleStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2avehiclefltsta" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aVehicleFltSta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2achassiswheelrpmfb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aChassisWheelRpmFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2achassiswheeltirepressfb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aChassisWheelTirePressFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2achassiswheelanglefb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aChassisWheelAngleFb
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-converter-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Converter Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Converter Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-converter-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Report Converter Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report Converter Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Pix底盘使用手册
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Pix底盘使用手册
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E4%BA%A7%E5%93%81%E4%BB%8B%E7%BB%8D/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    产品介绍
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E4%BD%BF%E7%94%A8%E4%B8%8E%E5%BC%80%E5%8F%91/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    使用与开发
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E8%BD%A6%E8%BE%86%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    车辆安全机制
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E5%BA%95%E7%9B%98%E6%80%A7%E8%83%BD%E5%8F%82%E6%95%B0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    底盘性能参数
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E5%A4%84%E7%90%86/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    常见问题处理
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E6%97%A5%E5%B8%B8%E7%BB%B4%E6%8A%A4%E4%B8%8E%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    日常维护与注意事项
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../pix%E5%BA%95%E7%9B%98%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C/%E5%94%AE%E5%90%8E%E4%B8%8E%E6%8A%80%E6%9C%AF%E6%94%AF%E6%8C%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    售后与技术支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    传感器标定
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            传感器标定
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/%E6%A0%87%E5%AE%9A%E5%B7%A5%E5%85%B7%E5%AE%89%E8%A3%85/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    标定工具集合安装
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/camera%E5%86%85%E5%8F%82%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    camera内参标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/LiDAR-camera%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR-camera标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/IMU%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IMU标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/LiDAR-IMU%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR-IMU标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E4%BC%A0%E6%84%9F%E5%99%A8%E6%A0%87%E5%AE%9A/LiDAR-LiDAR%E6%A0%87%E5%AE%9A/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    LiDAR-LiDAR标定
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    支持
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            支持
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%94%AF%E6%8C%81/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    支持
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_7_2" id="__nav_7_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    备份刷写系统
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_7_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7_2">
+            <span class="md-nav__icon md-icon"></span>
+            备份刷写系统
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%94%AF%E6%8C%81/%E5%A4%87%E4%BB%BD%E5%88%B7%E5%86%99%E7%B3%BB%E7%BB%9F/%E5%A4%87%E4%BB%BD%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    备份系统镜像
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../%E6%94%AF%E6%8C%81/%E5%A4%87%E4%BB%BD%E5%88%B7%E5%86%99%E7%B3%BB%E7%BB%9F/%E5%88%B7%E5%86%99%E7%B3%BB%E7%BB%9F%E9%95%9C%E5%83%8F/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    刷写系统镜像
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      Overview
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Overview">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      注意
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      角色
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件设计
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-command-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Command Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Command Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="输入">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#control-command-node_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Command Node的输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vdrivectrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vDriveCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vbrakectrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vBrakeCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vsteerctrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vSteerCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vvehiclectrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vVehicleCtrl
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#a2vwheelctrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      A2vWheelCtrl
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-parser-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Report Parser Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report Parser Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="输出">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#v2adrivestafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aDriveStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2abrakestafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aBrakeStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2asteerstafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aSteerStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2avehicleworkstafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aVehicleWorkStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2apowerstafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aPowerStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2avehiclestafb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aVehicleStaFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2avehiclefltsta" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aVehicleFltSta
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2achassiswheelrpmfb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aChassisWheelRpmFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2achassiswheeltirepressfb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aChassisWheelTirePressFb
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#v2achassiswheelanglefb" class="md-nav__link">
+    <span class="md-ellipsis">
+      V2aChassisWheelAngleFb
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#control-converter-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Control Converter Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Control Converter Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#report-converter-node" class="md-nav__link">
+    <span class="md-ellipsis">
+      Report Converter Node
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Report Converter Node">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      输入
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      输出
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      参考资料
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<div><h1 id="pix">Pix底盘接口</h1>
+<h2 id="overview">Overview</h2>
+<p><a href="https://www.pixmoving.com">Pixmoving</a>的<a href="https://en.wikipedia.org/wiki/Drive_by_wire">线控</a>底盘，具有自动驾驶接入能力. 我们已经设计了对接<a href="https://github.com/autowarefoundation/autoware.universe">Autoware.universe</a>的接口。</p>
+<h3 id="_1">注意</h3>
+<blockquote>
+<p>源代码请参考<a href="https://github.com/pixmoving-moveit/pix_driver">pix_driver</a></p>
+<p>在你使用接口之前，请先确保<a href="https://github.com/autowarefoundation/ros2_socketcan/tree/1.1.0">ros2_socketcan</a>在你的工作空间，并已经启动。</p>
+</blockquote>
+<h2 id="_2">角色</h2>
+<p>Pix底盘接口有以下3个主要功能:</p>
+<ul>
+<li><strong>在CAN frames和pix_hooke_driver_msgs之间翻译</strong></li>
+<li><strong>将Autoware的控制指令换完成为pix_hooke_driver_msgs</strong></li>
+<li><strong>将pix_hooke_driver_msgs内的车辆状态转换为Autoware messages</strong></li>
+</ul>
+<h2 id="_3">软件设计</h2>
+<p><img alt="PixChassisInterfaceDesign" src="../images/pix_chassis_interface_design.jpg"></p>
+<h2 id="control-command-node">Control Command Node</h2>
+<h3 id="_4">输入</h3>
+<h4 id="control-command-node_1"><strong>Control Command Node的输入</strong></h4>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>autonomous driving to vehicle drive control</td>
+<td><code>/pix_hooke/a2v_drivectrl_130</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/A2vDriveCtrl.msg">pix_hooke_driver_msgs/msg/A2vDriveCtrl</a>)</td>
+<td><a href="#a2vdrivectrl">A2vDriveCtrl</a></td>
+</tr>
+<tr>
+<td>autonomous driving to vehicle brake control</td>
+<td><code>/pix_hooke/a2v_brakectrl_131</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/A2vBrakeCtrl.msg">pix_hooke_driver_msgs/msg/A2vBrakeCtrl</a>)</td>
+<td><a href="#a2vbrakectrl">A2vBrakeCtrl</a></td>
+</tr>
+<tr>
+<td>autonomous driving to vehicle steering control</td>
+<td><code>/pix_hooke/a2v_steerctrl_132</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/A2vSteerCtrl.msg">pix_hooke_driver_msgs/msg/A2vSteerCtrl</a>)</td>
+<td><a href="#a2vsteerctrl">A2vSteerCtrl</a></td>
+</tr>
+<tr>
+<td>autonomous driving to vehicle control</td>
+<td><code>/pix_hooke/a2v_vehiclectrl_133</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/A2vVehicleCtrl.msg">pix_hooke_driver_msgs/msg/A2vVehicleCtrl</a>)</td>
+<td><a href="#a2vvehiclectrl">A2vVehicleCtrl</a></td>
+</tr>
+<tr>
+<td>autonomous driving to vehicle motor control</td>
+<td><code>/pix_hooke/a2v_wheelctrl_135</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/A2vWheelCtrl.msg">pix_hooke_driver_msgs/msg/A2vWheelCtrl</a>)</td>
+<td><a href="#a2vwheelctrl">A2vWheelCtrl</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="a2vdrivectrl">A2vDriveCtrl</h4>
+<p><strong>下表为<code>A2vDriveCtrl(self-driving to vehicle drive control)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>acu_chassis_driver_en_ctrl</td>
+<td>std_msgs/int8</td>
+<td>使能/失能底盘纵向加速控制 <code>{0: 'ACU_CHASSISDRIVERENCTRL_DISABLE', 1: 'ACU_CHASSISDRIVERENCTRL_ENABLE'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_driver_mode_ctrl</td>
+<td>std_msgs/int8</td>
+<td>目标纵向控制模式 <code>{0: 'ACU_CHASSISDRIVERMODECTRL_SPEED_CTRL_MODE', 1: 'ACU_CHASSISDRIVERMODECTRL_THROTTLE_CTRL_MODE', 2: 'ACU_CHASSISDRIVERMODECTRL_RESERVE', 3: 'ACU_CHASSISDRIVERMODECTRL_RESERVE'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_gear_ctrl</td>
+<td>std_msgs/int8</td>
+<td>目标档位 <code>{0: 'ACU_CHASSISGEARCTRL_DEFAULT_N', 1: 'ACU_CHASSISGEARCTRL_D', 2: 'ACU_CHASSISGEARCTRL_N', 3: 'ACU_CHASSISGEARCTRL_R'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_speed_ctrl</td>
+<td>std_msgs/float32</td>
+<td>目标速度 [m/s]</td>
+</tr>
+<tr>
+<td>acu_chassis_throttle_pdl_target</td>
+<td>std_msgs/float32</td>
+<td>目标加速踏板开度 <code>0.0-100.0</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="a2vbrakectrl">A2vBrakeCtrl</h4>
+<p><strong>下表为<code>A2vBrakeCtrl(self-driving to vehicle brake control)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>acu_chassis_brake_en</td>
+<td>std_msgs/int8</td>
+<td>使能/失能底盘刹车控制 <code>0: 'ACU_CHASSISBRAKEEN_DISABLE', 1: 'ACU_CHASSISBRAKEEN_ENABLE'</code></td>
+</tr>
+<tr>
+<td>acu_chassis_aeb_ctrl</td>
+<td>std_msgs/int8</td>
+<td>使能/失能AEB <code>0: 'ACU_CHASSISAEBCTRL_DISABLE', 1: 'ACU_CHASSISAEBCTRL_ENABLE'</code></td>
+</tr>
+<tr>
+<td>acu_chassis_brake_pdl_target</td>
+<td>std_msgs/float32</td>
+<td>目标刹车踏板开度 <code>0.0-100.0</code></td>
+</tr>
+<tr>
+<td>acu_chassis_epb_ctrl</td>
+<td>std_msgs/int8</td>
+<td>驻车控制 <code>0: 'ACU_CHASSISEPBCTRL_DEFAULT', 1: 'ACU_CHASSISEPBCTRL_BRAKE', 2: 'ACU_CHASSISEPBCTRL_RELEASE'</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="a2vsteerctrl">A2vSteerCtrl</h4>
+<p><strong>下表为<code>A2vSteerCtrl(self-driving to vehicle steering control)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>acu_chassis_steer_en_ctrl</td>
+<td>std_msgs/int8</td>
+<td>使能/失能横向/转向控制 <code>{0: 'ACU_CHASSISSTEERENCTRL_DISABLE', 1: 'ACU_CHASSISSTEERENCTRL_ENABLE'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_steer_mode_ctrl</td>
+<td>std_msgs/int8</td>
+<td>转向模式 <code>{0: 'ACU_CHASSISSTEERMODECTRL_FRONT_ACKERMAN', 1: 'ACU_CHASSISSTEERMODECTRL_SAME_FRONT_AND_BACK', 2: 'ACU_CHASSISSTEERMODECTRL_FRONT_DIFFERENT_BACK', 3: 'ACU_CHASSISSTEERMODECTRL_BACK_ACKRMAN', 4: 'ACU_CHASSISSTEERMODECTRL_FRONT_BACK'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_steer_angle_target</td>
+<td>std_msgs/int32</td>
+<td>目标转向角， <code>-500-500 从左至右</code>。 当<code>ACU_ChassisSteerModeCtrl=ACU_CHASSISSTEERMODECTRL_FRONT_BACK</code>时， <code>ACU_ChassisSteerAngleTarget</code>智能控制前转向</td>
+</tr>
+<tr>
+<td>acu_chassis_steer_angle_rear_target</td>
+<td>std_msgs/int32</td>
+<td>后轮目标转向脚<code>-500-500</code>。 只有当<code>ACU_ChassisSteerModeCtrl=ACU_CHASSISSTEERMODECTRL_FRONT_BACK</code>起作用</td>
+</tr>
+<tr>
+<td>acu_chassis_steer_angle_speed_ctrl</td>
+<td>std_msgs/float32</td>
+<td>目标转向角速度<code>0-500</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="a2vvehiclectrl">A2vVehicleCtrl</h4>
+<p><strong>下表为<code>A2vVehicleCtrl(self-driving to vehicle Vehicle Control)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>acu_vehicle_pos_lamp_ctrl</td>
+<td>std_msgs/int8</td>
+<td>示廓灯控制 <code>{0: 'ACU_VEHICLEPOSLAMPCTRL_OFF', 1: 'ACU_VEHICLEPOSLAMPCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_head_lamp_ctrl</td>
+<td>std_msgs/int8</td>
+<td>头灯控制 <code>{0: 'ACU_VEHICLEHEADLAMPCTRL_OFF', 1: 'ACU_VEHICLEHEADLAMPCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_left_lamp_ctrl</td>
+<td>std_msgs/int8</td>
+<td>左转向灯控制 <code>{0: 'ACU_VEHICLELEFTLAMPCTRL_OFF', 1: 'ACU_VEHICLELEFTLAMPCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_right_lamp_ctrl</td>
+<td>std_msgs/int8</td>
+<td>右转向灯控制 <code>{0: 'ACU_VEHICLERIGHTLAMPCTRL_OFF', 1: 'ACU_VEHICLERIGHTLAMPCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicl_high_beam_ctrl</td>
+<td>std_msgs/int8</td>
+<td>前大灯控制 <code>{0: 'ACU_VEHICLEHIGHBEAMCTRL_OFF', 1: 'ACU_VEHICLEHIGHBEAMCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_fog_lamp_ctrl</td>
+<td>std_msgs/int8</td>
+<td>雾灯控制 <code>{0: 'ACU_VEHICLEFOGLAMPCTRL_OFF', 1: 'ACU_VEHICLEFOGLAMPCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_body_light_crtl</td>
+<td>std_msgs/int8</td>
+<td>车体灯控制 <code>{0: 'ACU_VEHICLEBODYLIGHTCTRL_OFF', 1: 'ACU_VEHICLEBODYLIGHTCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_read_light_crtl</td>
+<td>std_msgs/int8</td>
+<td>阅读灯控制(保留) <code>{0: 'ACU_VEHICLEREADLIGHTCTRL_OFF', 1: 'ACU_VEHICLEREADLIGHTCTRL_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_voice</td>
+<td>std_msgs/int8</td>
+<td>车辆声音控制(保留) <code>{0: 'ACU_VEHICLEVOICE_OFF', 1: 'ACU_VEHICLEVOICE_TURN_LEFT', 2: 'ACU_VEHICLEVOICE_TURN_RIGHT', 3: 'ACU_VEHICLEVOICE_BACKWARD'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_wipers_crtl</td>
+<td>std_msgs/int8</td>
+<td>雨刮器控制(保留) <code>{0: 'ACU_VEHICLEWIPERSCTRL_OFF', 1: 'ACU_VEHICLEWIPERSCTRL_LOW', 2: 'ACU_VEHICLEWIPERSCTRL_MID', 3: 'ACU_VEHICLEWIPERSCTRL_HIGH'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_door_crtl</td>
+<td>std_msgs/int8</td>
+<td>车门控制(保留) <code>{0: 'ACU_VEHICLEDOORCTRL_DEFAULT', 1: 'ACU_VEHICLEDOORCTRL_CLOSE', 2: 'ACU_VEHICLEDOORCTRL_OPEN'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_window_crtl</td>
+<td>std_msgs/int8</td>
+<td>车窗控制(保留) <code>{0: 'ACU_VEHICLEWINDOWCTRL_DEFAULT', 1: 'ACU_VEHICLEWINDOWCTRL_CLOSE', 2: 'ACU_VEHICLEWINDOWCTRL_OPEN'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_speed_limite_mode</td>
+<td>std_msgs/int8</td>
+<td>速度模式 <code>{0: 'ACU_CHASSISSPEEDLIMITEMODE_DEFAULT', 1: 'ACU_CHASSISSPEEDLIMITEMODE_LIMIT'}</code></td>
+</tr>
+<tr>
+<td>acu_chassis_speed_limite_val</td>
+<td>std_msgs/int32</td>
+<td>限速控制 <code>m/s</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="a2vwheelctrl">A2vWheelCtrl</h4>
+<p><strong>下表为<code>A2vWheelCtrl(self-driving to vehicle motor control)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>acu_motor_torque_lf_crtl</td>
+<td>std_smgs/float32</td>
+<td>左前电机扭矩控制 [Nm] <code>-200.0-200.0</code></td>
+</tr>
+<tr>
+<td>acu_motor_torque_rf_crtl</td>
+<td>std_smgs/float32</td>
+<td>右前点击扭矩控制 [Nm] <code>-200.0-200.0</code></td>
+</tr>
+<tr>
+<td>acu_motor_torque_lr_crtl</td>
+<td>std_smgs/float32</td>
+<td>左后点击扭矩控制 [Nm] <code>-200.0-200.0</code></td>
+</tr>
+<tr>
+<td>acu_motor_torque_rr_crtl</td>
+<td>std_smgs/float32</td>
+<td>右后点击扭矩控制 [Nm] <code>-200.0-200.0</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">输出</h3>
+<p><strong><code>Control Command Node</code>输出<a href="http://docs.ros.org/en/melodic/api/can_msgs/html/msg/Frame.html">can_msgs/Frame</a>至<a href="https://github.com/autowarefoundation/ros2_socketcan/tree/1.1.0">Socket CAN Interface</a>.</strong></p>
+<table>
+<thead>
+<tr>
+<th>Output (to Socket CAN Interface)</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>can frame</td>
+<td><code>/to_can_bus</code><br>(<a href="http://docs.ros.org/en/melodic/api/can_msgs/html/msg/Frame.html">can_msgs/msg/Frame</a>)</td>
+<td>CAN Frames控制信号</td>
+</tr>
+</tbody>
+</table>
+<h2 id="report-parser-node">Report Parser Node</h2>
+<h3 id="_6">输入</h3>
+<p><strong><code>Report Parser Node</code>的输入是来自<a href="https://github.com/autowarefoundation/ros2_socketcan/tree/1.1.0">Socket CAN Interface</a>的<a href="http://docs.ros.org/en/melodic/api/can_msgs/html/msg/Frame.html">can_msgs/Frame</a></strong></p>
+<table>
+<thead>
+<tr>
+<th>Input (From Socket CAN Interface)</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>can frame</td>
+<td><code>/from_can_bus</code><br>(<a href="http://docs.ros.org/en/melodic/api/can_msgs/html/msg/Frame.html">can_msgs/msg/Frame</a>)</td>
+<td>CAN Frames的反馈信号</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_7">输出</h3>
+<p><strong>Report Parser Node的输出</strong></p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>车辆发送到自动驾驶的驾驶反馈</td>
+<td><code>/pix_hooke/v2a_drivestafb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aDriveStaFb.msg">pix_hooke_driver_msgs/msg/V2aDriveStaFb</a>)</td>
+<td><a href="#v2adrivestafb">V2aDriveStaFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的刹车状态反馈</td>
+<td><code>/pix_hooke/v2a_brakestafb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aBrakeStaFb.msg">pix_hooke_driver_msgs/msg/V2aBrakeStaFb</a>)</td>
+<td><a href="#v2abrakestafb">V2aBrakeStaFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的转向状态反馈</td>
+<td><code>/pix_hooke/v2a_steerstafb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aSteerStaFb.msg">pix_hooke_driver_msgs/msg/V2aSteerStaFb</a>)</td>
+<td><a href="#v2asteerstafb">V2aSteerStaFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的车辆工作状态反馈</td>
+<td><code>/pix_hooke/v2a_vehicleworkstafb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aVehicleWorkStaFb.msg">pix_hooke_driver_msgs/msg/V2aVehicleWorkStaFb</a>)</td>
+<td><a href="#v2avehicleworkstafb">V2aVehicleWorkStaFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的电池状态反馈</td>
+<td><code>/pix_hooke/v2a_powerstafb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aPowerStaFb.msg">pix_hooke_driver_msgs/msg/V2aPowerStaFb</a>)</td>
+<td><a href="#v2apowerstafb">V2aPowerStaFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的车辆状态反馈</td>
+<td><code>/pix_hooke/v2a_vehiclestafb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aVehicleStaFb.msg">pix_hooke_driver_msgs/msg/V2aVehicleStaFb</a>)</td>
+<td><a href="#v2avehiclestafb">V2aVehicleStaFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的错误状态反馈</td>
+<td><code>/pix_hooke/v2a_vehiclefltsta</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aVehicleFltSta.msg">pix_hooke_driver_msgs/msg/V2aVehicleFltSta</a>)</td>
+<td><a href="#v2avehiclefltsta">V2aVehicleFltSta</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的轮速反馈</td>
+<td><code>/pix_hooke/v2a_chassiswheelrpmfb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aChassisWheelRpmFb.msg">pix_hooke_driver_msgs/msg/V2aChassisWheelRpmFb</a>)</td>
+<td><a href="#v2achassiswheelrpmfb">V2aChassisWheelRpmFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的胎压反馈</td>
+<td><code>/pix_hooke/v2a_chassiswheeltirepressfb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aChassisWheelTirePressFb.msg">pix_hooke_driver_msgs/msg/V2aChassisWheelTirePressFb</a>)</td>
+<td><a href="#v2achassiswheeltirepressfb">V2aChassisWheelTirePressFb</a></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的车轮角度反馈</td>
+<td><code>/pix_hooke/v2a_chassiswheelanglefb</code><br>(<a href="https://github.com/pixmoving-moveit/pix_driver/blob/main/pix_hooke_driver_msgs/msg/V2aChassisWheelAngleFb.msg">pix_hooke_driver_msgs/msg/V2aChassisWheelAngleFb</a>)</td>
+<td><a href="#v2achassiswheelanglefb">V2aChassisWheelAngleFb</a></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2adrivestafb">V2aDriveStaFb</h4>
+<p><strong>下表为<code>V2aDriveStaFb(vehicle to autonomous driving status feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_driver_en_sta</td>
+<td>std_msgs/int8</td>
+<td>纵向控制使能反馈 <code>{0: 'VCU_CHASSISDRIVERENSTA_DISABLE', 1: 'VCU_CHASSISDRIVERENSTA_ENABLE'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_diver_slopover</td>
+<td>std_msgs/int8</td>
+<td>纵向控制过载反馈 <code>{0: 'VCU_CHASSISDIVERSLOPOVER_NORMAL', 1: 'VCU_CHASSISDIVERSLOPOVER_OVER_SLOP'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_driver_mode_sta</td>
+<td>std_msgs/int8</td>
+<td>纵向控制模式反馈{0: 'VCU_CHASSISDRIVERMODESTA_SPEED_CTRL_MODE', 1: 'VCU_CHASSISDRIVERMODESTA_THROTTLE_CTRL_MODE', 2: 'VCU_CHASSISDRIVERMODESTA_RESERVE', 3: 'VCU_CHASSISDRIVERMODESTA_RESERVE'}`</td>
+</tr>
+<tr>
+<td>vcu_chassis_gear_fb</td>
+<td>std_msgs/int8</td>
+<td>档位反馈 <code>{0: 'VCU_CHASSISGEARFB_NO_USE', 1: 'VCU_CHASSISGEARFB_D', 2: 'VCU_CHASSISGEARFB_N', 3: 'VCU_CHASSISGEARFB_R'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_speed_fb</td>
+<td>std_msgs/float32</td>
+<td>速度反馈 [m/s] <code>-50.0-50.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_throttle_padl_fb</td>
+<td>std_msgs/float32</td>
+<td>加速踏板开度反馈 <code>0.0-100.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_accceleration_fb</td>
+<td>std_msgs/float32</td>
+<td>加速度反馈 [m/s2] <code>-20.0-20.0</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2abrakestafb">V2aBrakeStaFb</h4>
+<p><strong>下表为<code>V2aBrakeStaFb(vehicle to autonomous driving braking status feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_brake_en_sta</td>
+<td>std_msgs/int8</td>
+<td>刹车控制使能反馈 <code>{0: 'VCU_CHASSISBRAKEENSTA_DISABLE', 1: 'VCU_CHASSISBRAKEENSTA_ENABLE'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_brake_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>刹车灯状态反馈 <code>{0: 'VCU_VEHICLEBRAKELAMPFB_OFF', 1: 'VCU_VEHICLEBRAKELAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_epb_fb</td>
+<td>std_msgs/int8</td>
+<td>EPB状态反馈 <code>{0: 'VCU_CHASSISEPBFB_RELEASE', 1: 'VCU_CHASSISEPBFB_BRAKE', 2: 'VCU_CHASSISEPBFB_RELEASING', 3: 'VCU_CHASSISEPBFB_BRAKING'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_brake_padl_fb</td>
+<td>std_msgs/float32</td>
+<td>刹车踏板开度反馈 <code>0-100</code></td>
+</tr>
+<tr>
+<td>vcu_aeb_en_sta_fb</td>
+<td>std_msgs/int8</td>
+<td>AEB使能反馈 <code>{0: 'VCU_AEBENSTAFB_OFF', 1: 'VCU_AEBENSTAFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_aeb_trigger_sta_fb</td>
+<td>std_msgs/int8</td>
+<td>AEB触发反馈 <code>{0: 'VCU_AEBTRIGGERSTAFB_OFF', 1: 'VCU_AEBTRIGGERSTAFB_AEB_TRIGGER'}</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2asteerstafb">V2aSteerStaFb</h4>
+<p><strong>下表为<code>V2aSteerStaFb(vehicle to autonomous driving steering status feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_en_sta</td>
+<td>std_msgs/int8</td>
+<td>steering control enable status feedback <code>{0: 'VCU_CHASSISSTEERENSTA_DISABLE', 1: 'VCU_CHASSISSTEERENSTA_ENABLE'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_slopover</td>
+<td>std_msgs/int8</td>
+<td>steering slop-over status feedback <code>{0: 'VCU_CHASSISSTEERSLOPOVER_NORMAL', 1: 'VCU_CHASSISSTEERSLOPOVER_OVER_SLOP'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_work_mode</td>
+<td>std_msgs/int8</td>
+<td>steering work mode feedback <code>{0: 'VCU_CHASSISSTEERWORKMODE_MACHINE', 1: 'VCU_CHASSISSTEERWORKMODE_WIRE', 2: 'VCU_CHASSISSTEERWORKMODE_POWER'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_mode_fb</td>
+<td>std_msgs/int8</td>
+<td>steering mode feedback <code>{0: 'VCU_CHASSISSTEERMODEFB_FRONT_ACKERMAN', 1: 'VCU_CHASSISSTEERMODEFB_SAME_FRONT_AND_BACK', 2: 'VCU_CHASSISSTEERMODEFB_FRONT_DIFFERENT_BACK', 3: 'VCU_CHASSISSTEERMODEFB_BACK_ACKRMAN', 4: 'VCU_CHASSISSTEERMODEFB_FRONT_BACK'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_angle_fb</td>
+<td>std_msgs/int32</td>
+<td>steering angle of front steering wheel [deg] <code>-500-500</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_angle_rear_fb</td>
+<td>std_msgs/int32</td>
+<td>steering angle of rear steering wheel [deg] <code>-500-500</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_steer_angle_speed_fb</td>
+<td>std_msgs/float32</td>
+<td>angular speed of steering wheel [deg/s] <code>0-500</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2avehicleworkstafb">V2aVehicleWorkStaFb</h4>
+<p><strong>下表为<code>V2aVehicleWorkStaFb(vehicle to autonomous driving vehicle work status feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_driving_mode_fb</td>
+<td>std_msgs/int8</td>
+<td>VCU控制模式反馈 <code>{0: 'VCU_DRIVINGMODEFB_STANDBY', 1: 'VCU_DRIVINGMODEFB_SELF_DRIVING', 2: 'VCU_DRIVINGMODEFB_REMOTE', 3: 'VCU_DRIVINGMODEFB_MAN'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_sta_fb</td>
+<td>std_msgs/int8</td>
+<td>车辆动力状态反馈 <code>{0: 'VCU_CHASSISPOWERSTAFB_INIT', 1: 'VCU_CHASSISPOWERSTAFB_ON_ACC', 2: 'VCU_CHASSISPOWERSTAFB_READY', 3: 'VCU_CHASSISPOWERSTAFB_OFF'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_dc_sta</td>
+<td>std_msgs/int8</td>
+<td>DC工作状态反馈 <code>{0: 'VCU_CHASSISPOWERDCSTA_OFF', 1: 'VCU_CHASSISPOWERDCSTA_ON', 2: 'VCU_CHASSISPOWERDCSTA_STANDBY'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_speed_limited_mode_fb</td>
+<td>std_msgs/int8</td>
+<td>限速模式反馈 <code>{0: 'VCU_CHASSISSPEEDLIMITEDMODEFB_DEFAULT', 1: 'VCU_CHASSISSPEEDLIMITEDMODEFB_LIMIT'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_limite_sta</td>
+<td>std_msgs/int8</td>
+<td>动力限制模式反馈 <code>{0: 'VCU_CHASSISPOWERLIMITESTA_DEFAULT', 1: 'VCU_CHASSISPOWERLIMITESTA_LIMIT'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_eco_mode</td>
+<td>std_msgs/int8</td>
+<td>Eco模式反馈 <code>{0: 'VCU_SYSECOMODE_DEFAULT', 1: 'VCU_SYSECOMODE_ECO', 2: 'VCU_SYSECOMODE_SPORT'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_speed_limited_val_fb</td>
+<td>std_msgs/float32</td>
+<td>限速反馈 [m/s] <code>0.0-50.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_low_power_volt_sta</td>
+<td>std_msgs/float32</td>
+<td>低电量反馈 [V] <code>0-25</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_e_stop_sta_fb</td>
+<td>std_msgs/int8</td>
+<td>急停状态反馈 <code>{0: 'VCU_CHASSISESTOPSTAFB_NO', 1: 'VCU_CHASSISESTOPSTAFB_CHASSIS_ESTOP', 2: 'VCU_CHASSISESTOPSTAFB_REMOTE_ESTOP', 3: 'VCU_CHASSISESTOPSTAFB_CHASSIS_ERR_ESTOP'}</code></td>
+</tr>
+<tr>
+<td>vcu_crash_front_sta</td>
+<td>std_msgs/int8</td>
+<td>前碰撞反馈 <code>{0: 'VCU_CRASHFRONTSTA_OFF', 1: 'VCU_CRASHFRONTSTA_COLLIDE'}</code></td>
+</tr>
+<tr>
+<td>vcu_crash_rear_sta</td>
+<td>std_msgs/int8</td>
+<td>后碰撞反馈 <code>{0: 'VCU_CRASHREARSTA_OFF', 1: 'VCU_CRASHREARSTA_COLLIDE'}</code></td>
+</tr>
+<tr>
+<td>vcu_crash_left_sta</td>
+<td>std_msgs/int8</td>
+<td>左碰撞反馈 <code>{0: 'VCU_CRASHLEFTSTA_OFF', 1: 'VCU_CRASHLEFTSTA_COLLIDE'}</code></td>
+</tr>
+<tr>
+<td>vcu_crash_right_sta</td>
+<td>std_msgs/int8</td>
+<td>右碰撞反馈 <code>{0: 'VCU_CRASHLEFTSTA_OFF', 1: 'VCU_CRASHLEFTSTA_COLLIDE'}</code></td>
+</tr>
+<tr>
+<td>vcu_life</td>
+<td>std_msgs/int32</td>
+<td>报文计数周期 <code>0-255</code></td>
+</tr>
+<tr>
+<td>vcu_check_sum</td>
+<td>std_msgs/int32</td>
+<td>check sum</td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2apowerstafb">V2aPowerStaFb</h4>
+<p><strong>下表为<code>V2aPowerStaFb(vehicle to autonomous driving power status feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_bms_reserved_1</td>
+<td>std_msgs/int32</td>
+<td>保留位</td>
+</tr>
+<tr>
+<td>vcu_chassis_power_charge_sta</td>
+<td>std_msgs/int8</td>
+<td>充电状态反馈 <code>{0: 'VCU_CHASSISPOWERCHARGESTA_NO_CHARGE', 1: 'VCU_CHASSISPOWERCHARGESTA_CHARGE', 2: 'VCU_CHASSISPOWERCHARGESTA_CHARGE_FULL'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_charge_sock_sta</td>
+<td>std_msgs/int8</td>
+<td>充电接口状态反馈 <code>{0: 'VCU_CHASSISPOWERCHARGESOCKSTA_NO_CONNECT', 1: 'VCU_CHASSISPOWERCHARGESOCKSTA_CONNECT'}</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_soc_fb</td>
+<td>std_msgs/int32</td>
+<td>电池SOC反馈 [%] <code>0-100</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_volt_fb</td>
+<td>std_msgs/float32</td>
+<td>电池电压反馈 [V] <code>0.0-1000.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_power_curr_fb</td>
+<td>std_msgs/float32</td>
+<td>电池电流反馈 [A] <code>-1000.0-1000.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_bms_max_temp</td>
+<td>std_msgs/int32</td>
+<td>BMS最大温度反馈 [°C] <code>-40-80</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_bms_reserved_2</td>
+<td>std_msgs/int32</td>
+<td>保留位</td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2avehiclestafb">V2aVehicleStaFb</h4>
+<p><strong>下表为<code>V2aVehicleStaFb(vehicle to autonomous driving vehicle status feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_vehicle_pos_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>示廓灯反馈 <code>{0: 'VCU_VEHICLEPOSLAMPFB_OFF', 1: 'VCU_VEHICLEPOSLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_head_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>头灯反馈 <code>{0: 'VCU_VEHICLEHEADLAMPFB_OFF', 1: 'VCU_VEHICLEHEADLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_left_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>左转向灯反馈 <code>{0: 'VCU_VEHICLELEFTLAMPFB_OFF', 1: 'VCU_VEHICLELEFTLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_right_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>右转向灯反馈 <code>{0: 'VCU_VEHICLERIGHTLAMPFB_OFF', 1: 'VCU_VEHICLERIGHTLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_high_beam_fb</td>
+<td>std_msgs/int8</td>
+<td>前大灯反馈 <code>{0: 'VCU_VEHICLEHIGHBEAMFB_OFF', 1: 'VCU_VEHICLEHIGHBEAMFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_fog_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>雾灯反馈 <code>{0: 'VCU_VEHICLEFOGLAMPFB_OFF', 1: 'VCU_VEHICLEFOGLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_hazard_war_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>紧急状态灯反馈 <code>{0: 'VCU_VEHICLEHAZARDWARLAMPFB_OFF', 1: 'VCU_VEHICLEHAZARDWARLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_body_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>车体灯反馈 <code>{0: 'VCU_VEHICLEBODYLAMPFB_OFF', 1: 'VCU_VEHICLEBODYLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_read_lamp_fb</td>
+<td>std_msgs/int8</td>
+<td>阅读灯反馈 <code>{0: 'VCU_VEHICLEREADLAMPFB_OFF', 1: 'VCU_VEHICLEREADLAMPFB_ON'}</code></td>
+</tr>
+<tr>
+<td>acu_vehicle_window_fb</td>
+<td>std_msgs/int8</td>
+<td>车窗状态反馈 <code>{0: 'ACU_VEHICLEWINDOWFB_INVALID', 1: 'ACU_VEHICLEWINDOWFB_OPENING', 2: 'ACU_VEHICLEWINDOWFB_CLOSING', 3: 'ACU_VEHICLEWINDOWFB_OPEN_INPLACE', 4: 'ACU_VEHICLEWINDOWFB_CLOSE_INPLACE', 5: 'ACU_VEHICLEWINDOWFB_OPEN_TIMEOUT', 6: 'ACU_VEHICLEWINDOWFB_CLOSE_TIMEOUT'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_door_sta_fb</td>
+<td>std_msgs/int8</td>
+<td>车门状态反馈 <code>{0: 'VCU_VEHICLEDOORSTAFB_INVALID', 1: 'VCU_VEHICLEDOORSTAFB_OPENING', 2: 'VCU_VEHICLEDOORSTAFB_CLOSING', 3: 'VCU_VEHICLEDOORSTAFB_OPEN_INPLACE', 4: 'VCU_VEHICLEDOORSTAFB_CLOSE_INPLACE', 5: 'VCU_VEHICLEDOORSTAFB_OPEN_TIMEOUT', 6: 'VCU_VEHICLEDOORSTAFB_CLOSE_TIMEOUT'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_wipers_sta_fb</td>
+<td>std_msgs/int8</td>
+<td>雨刮器状态反馈 <code>{0: 'VCU_VEHICLEWIPERSSTAFB_OFF', 1: 'VCU_VEHICLEWIPERSSTAFB_LOW', 2: 'VCU_VEHICLEWIPERSSTAFB_MID', 3: 'VCU_VEHICLEWIPERSSTAFB_HIGH'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_safety_belt_1</td>
+<td>std_msgs/int8</td>
+<td>安全带1反馈 <code>{0: 'VCU_VEHICLESAFETYBELT1_NO', 1: 'VCU_VEHICLESAFETYBELT1_SIT', 2: 'VCU_VEHICLESAFETYBELT1_SAFETYBELT', 3: 'VCU_VEHICLESAFETYBELT1_UNKNOW_SENSOR_ERROR'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_safety_belt_2</td>
+<td>std_msgs/int8</td>
+<td>安全带2反馈 <code>{0: 'VCU_VEHICLESAFETYBELT2_NO', 1: 'VCU_VEHICLESAFETYBELT2_SIT', 2: 'VCU_VEHICLESAFETYBELT2_SAFETYBELT', 3: 'VCU_VEHICLESAFETYBELT2_UNKNOW_SENSOR_ERROR'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_safety_belt_3</td>
+<td>std_msgs/int8</td>
+<td>安全带3反馈 <code>{0: 'VCU_VEHICLESAFETYBELT3_NO', 1: 'VCU_VEHICLESAFETYBELT3_SIT', 2: 'VCU_VEHICLESAFETYBELT3_SAFETYBELT', 3: 'VCU_VEHICLESAFETYBELT3_UNKNOW_SENSOR_ERROR'}</code></td>
+</tr>
+<tr>
+<td>vcu_vehicle_safety_belt_4</td>
+<td>std_msgs/int8</td>
+<td>安全带4反馈 <code>{0: 'VCU_VEHICLESAFETYBELT4_NO', 1: 'VCU_VEHICLESAFETYBELT4_SIT', 2: 'VCU_VEHICLESAFETYBELT4_SAFETYBELT', 3: 'VCU_VEHICLESAFETYBELT4_UNKNOW_SENSOR_ERROR'}</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2avehiclefltsta">V2aVehicleFltSta</h4>
+<p><strong>下表为<code>V2aVehicleFltSta(vehicle to autonomous driving vehicle fault feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_sys_motor_over_temp_sta</td>
+<td>std_msgs/int8</td>
+<td>电机高温状态反馈 <code>{0: 'VCU_SYSMOTOROVERTEMPSTA_NORMAL', 1: 'VCU_SYSMOTOROVERTEMPSTA_OVER_TEMP'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_bms_over_temp_sta</td>
+<td>std_msgs/int8</td>
+<td>BMS高温状态反馈 <code>{0: 'VCU_SYSBMSOVERTEMPSTA_NORMAL', 1: 'VCU_SYSBMSOVERTEMPSTA_OVER_TEMP'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_brake_over_temp_sta</td>
+<td>std_msgs/int8</td>
+<td>制动系统高温状态反馈 <code>{0: 'VCU_SYSBRAKEOVERTEMPSTA_NORMAL', 1: 'VCU_SYSBRAKEOVERTEMPSTA_OVER_TEMP'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_steer_over_temp_sta</td>
+<td>std_msgs/int8</td>
+<td>转向系统高温状态反馈 <code>{0: 'VCU_SYSSTEEROVERTEMPSTA_NORMAL', 1: 'VCU_SYSSTEEROVERTEMPSTA_OVER_TEMP'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_under_volt</td>
+<td>std_msgs/int8</td>
+<td>电池低电压反馈 <code>{0: 'VCU_SYSUNDERVOLT_NORMAL', 1: 'VCU_SYSUNDERVOLT_UNDER_VOLT'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_flt</td>
+<td>std_msgs/int8</td>
+<td>系统错误 <code>{0: 'VCU_SYSFLT_NORMAL', 1: 'VCU_SYSFLT_FAULT_LEVEL_1', 2: 'VCU_SYSFLT_FAULT_LEVEL_2', 3: 'VCU_SYSFLT_FAULT_LEVEL_3', 4: 'VCU_SYSFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_brake_flt</td>
+<td>std_msgs/int8</td>
+<td>制动系统错误 <code>{0: 'VCU_SYSBRAKEFLT_NORMAL', 1: 'VCU_SYSBRAKEFLT_FAULT_LEVEL_1', 2: 'VCU_SYSBRAKEFLT_FAULT_LEVEL_2', 3: 'VCU_SYSBRAKEFLT_FAULT_LEVEL_3', 4: 'VCU_SYSBRAKEFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_parking_flt</td>
+<td>std_msgs/int8</td>
+<td>驻车错误 <code>{0: 'VCU_SYSPARKINGFLT_NORMAL', 1: 'VCU_SYSPARKINGFLT_FAULT_LEVEL_1', 2: 'VCU_SYSPARKINGFLT_FAULT_LEVEL_2', 3: 'VCU_SYSPARKINGFLT_FAULT_LEVEL_3', 4: 'VCU_SYSPARKINGFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_steer_front_flt</td>
+<td>std_msgs/int8</td>
+<td>前转向系统错误 <code>{0: 'VCU_SYSSTEERFRONTFLT_NORMAL', 1: 'VCU_SYSSTEERFRONTFLT_FAULT_LEVEL_1', 2: 'VCU_SYSSTEERFRONTFLT_FAULT_LEVEL_2', 3: 'VCU_SYSSTEERFRONTFLT_FAULT_LEVEL_3', 4: 'VCU_SYSSTEERFRONTFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_steer_back_flt</td>
+<td>std_msgs/int8</td>
+<td>后转向系统错误 <code>{0: 'VCU_SYSSTEERBACKFLT_NORMAL', 1: 'VCU_SYSSTEERBACKFLT_FAULT_LEVEL_1', 2: 'VCU_SYSSTEERBACKFLT_FAULT_LEVEL_2', 3: 'VCU_SYSSTEERBACKFLT_FAULT_LEVEL_3', 4: 'VCU_SYSSTEERBACKFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_motor_lf_flt</td>
+<td>std_msgs/int8</td>
+<td>左前电机错误 <code>{0: 'VCU_SYSMOTORLFFLT_NORMAL', 1: 'VCU_SYSMOTORLFFLT_FAULT_LEVEL_1', 2: 'VCU_SYSMOTORLFFLT_FAULT_LEVEL_2', 3: 'VCU_SYSMOTORLFFLT_FAULT_LEVEL_3', 4: 'VCU_SYSMOTORLFFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_motor_rf_flt</td>
+<td>std_msgs/int8</td>
+<td>右前电机错误 <code>{0: 'VCU_SYSMOTORRFFLT_NORMAL', 1: 'VCU_SYSMOTORRFFLT_FAULT_LEVEL_1', 2: 'VCU_SYSMOTORRFFLT_FAULT_LEVEL_2', 3: 'VCU_SYSMOTORRFFLT_FAULT_LEVEL_3', 4: 'VCU_SYSMOTORRFFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_motor_lr_flt</td>
+<td>std_msgs/int8</td>
+<td>左后电机错误 <code>{0: 'VCU_SYSMOTORLRFLT_NORMAL', 1: 'VCU_SYSMOTORLRFLT_FAULT_LEVEL_1', 2: 'VCU_SYSMOTORLRFLT_FAULT_LEVEL_2', 3: 'VCU_SYSMOTORLRFLT_FAULT_LEVEL_3', 4: 'VCU_SYSMOTORLRFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_motor_rr_flt</td>
+<td>std_msgs/int8</td>
+<td>右后电机错误 <code>{0: 'VCU_SYSMOTORRRFLT_NORMAL', 1: 'VCU_SYSMOTORRRFLT_FAULT_LEVEL_1', 2: 'VCU_SYSMOTORRRFLT_FAULT_LEVEL_2', 3: 'VCU_SYSMOTORRRFLT_FAULT_LEVEL_3', 4: 'VCU_SYSMOTORRRFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_bms_flt</td>
+<td>std_msgs/int8</td>
+<td>BMS错误 <code>{0: 'VCU_SYSBMSFLT_NORMAL', 1: 'VCU_SYSBMSFLT_FAULT_LEVEL_1', 2: 'VCU_SYSBMSFLT_FAULT_LEVEL_2', 3: 'VCU_SYSBMSFLT_FAULT_LEVEL_3', 4: 'VCU_SYSBMSFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+<tr>
+<td>vcu_sys_dc_flt</td>
+<td>std_msgs/int8</td>
+<td>DC系统错误 <code>{0: 'VCU_SYSDCFLT_NORMAL', 1: 'VCU_SYSDCFLT_FAULT_LEVEL_1', 2: 'VCU_SYSDCFLT_FAULT_LEVEL_2', 3: 'VCU_SYSDCFLT_FAULT_LEVEL_3', 4: 'VCU_SYSDCFLT_FAULT_LEVEL_4'}</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2achassiswheelrpmfb">V2aChassisWheelRpmFb</h4>
+<p><strong>下表为<code>V2aChassisWheelRpmFb(vehicle to autonomous driving vehicle wheel speed feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_rpm_lf</td>
+<td>std_msgs/int32</td>
+<td>左前电机转速 [rpm] <code>-2000-2000</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_rpm_rf</td>
+<td>std_msgs/int32</td>
+<td>右前电机转速 [rpm] <code>-2000-2000</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_rpm_lr</td>
+<td>std_msgs/int32</td>
+<td>左后电机转速 [rpm] <code>-2000-2000</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_rpm_rr</td>
+<td>std_msgs/int32</td>
+<td>右后电机转速 [rpm] <code>-2000-2000</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2achassiswheeltirepressfb">V2aChassisWheelTirePressFb</h4>
+<p><strong>下表为<code>V2aChassisWheelTirePressFb(vehicle to autonomous driving tire pressure feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_tire_press_lf</td>
+<td>std_msgs/float32</td>
+<td>左前胎压 [bar] <code>0.0-20.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_tire_press_rf</td>
+<td>std_msgs/float32</td>
+<td>右前胎压 [bar] <code>0.0-20.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_tire_press_lr</td>
+<td>std_msgs/float32</td>
+<td>左后胎压 [bar] <code>0.0-20.0</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_tire_press_rr</td>
+<td>std_msgs/float32</td>
+<td>右后胎压 [bar] <code>0.0-20.0</code></td>
+</tr>
+</tbody>
+</table>
+<h4 id="v2achassiswheelanglefb">V2aChassisWheelAngleFb</h4>
+<p><strong>下表为<code>V2aChassisWheelAngleFb(vehicle to autonomous driving steering wheel angle feedback)</code>的详细介绍</strong></p>
+<table>
+<thead>
+<tr>
+<th>Content</th>
+<th>Data Type</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>header</td>
+<td>std_msgs/Header</td>
+<td>header</td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_angle_lf</td>
+<td>std_msgs/float32</td>
+<td>左前转向角 [deg] <code>-90|90</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_angle_rf</td>
+<td>std_msgs/float32</td>
+<td>右前转向角 [deg] <code>-90|90</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_angle_lr</td>
+<td>std_msgs/float32</td>
+<td>左后转向角 [deg] <code>-90|90</code></td>
+</tr>
+<tr>
+<td>vcu_chassis_wheel_angle_rr</td>
+<td>std_msgs/float32</td>
+<td>右后转向角 [deg] <code>-90|90</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="control-converter-node">Control Converter Node</h2>
+<h3 id="_8">输入</h3>
+<table>
+<thead>
+<tr>
+<th>输入(来自Autoware和底盘反馈)</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>raw vehicle command</td>
+<td><code>/control/command/actuation_cmd</code><br>(<a href="https://github.com/tier4/tier4_autoware_msgs/blob/tier4/universe/tier4_vehicle_msgs/msg/ActuationCommandStamped.msg">tier4_vehicle_msgs/msg/ActuationCommandStamped</a>)</td>
+<td>原始控制指令，包括油门、刹车踏板和转向角</td>
+</tr>
+<tr>
+<td>gear command</td>
+<td><code>/control/command/gear_cmd</code><br>(<a href="">autoware_auto_vehicle_msgs/msg/GearCommand</a>)</td>
+<td>来自<a href="https://github.com/tier4/autoware.universe/tree/tier4/main/control/shift_decider">Autoware Shift Decider</a>的档位命令</td>
+</tr>
+<tr>
+<td>drive status feedback</td>
+<td><code>/pix_hooke/v2a_drivestafb</code><br>(<a href="#the-detailed-contents-in-v2adrivestafbvehicle-to-autonomous-driving-status-feedback-are-as-follows">V2aDriveStaFb</a>)</td>
+<td>当需要换挡时查看档位反馈，如果与目标档位不一致时将速度设为0</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">输出</h3>
+<table>
+<thead>
+<tr>
+<th>输出 (发送至<a href="#control-command-node">Control Command Node</a>)</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>自动驾驶发送到车辆的加速命令</td>
+<td><code>/pix_hooke/a2v_drivectrl_130</code><br>(<a href="#the-detailed-contents-in-a2vdrivectrlself-driving-to-vehicle-drive-control-are-as-follows">A2vDriveCtrl</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>自动驾驶发送到车辆的制动控制</td>
+<td><code>/pix_hooke/a2v_brakectrl_131</code><br>(<a href="#the-detailed-contents-in-a2vbrakectrlself-driving-to-vehicle-brake-control-are-as-follows">A2vBrakeCtrl</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>自动驾驶发送到车辆的转向控制</td>
+<td><code>/pix_hooke/a2v_steerctrl_132</code><br>(<a href="#the-detailed-contents-in-a2vsteerctrlself-driving-to-vehicle-steering-control-are-as-follows">A2vSteerCtrl</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>自动驾驶发送到车辆的灯光等控制</td>
+<td><code>/pix_hooke/a2v_vehiclectrl_133</code><br>(<a href="#the-detailed-contents-in-a2vvehiclectrlself-driving-to-vehicle-vehicle-control-are-as-follows">A2vVehicleCtrl</a>)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="report-converter-node">Report Converter Node</h2>
+<h3 id="_10">输入</h3>
+<table>
+<thead>
+<tr>
+<th>输入 (来自<a href="#report-parser-node">Report Parser Node</a> )</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>车辆发送到自动驾驶的加速状态反馈</td>
+<td><code>/pix_hooke/v2a_drivestafb</code><br>(<a href="#the-detailed-contents-in-v2adrivestafbvehicle-to-autonomous-driving-status-feedback-are-as-follows">pix_hooke_driver_msgs::msg::V2aDriveStaFb</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的制动状态反馈</td>
+<td><code>/pix_hooke/v2a_brakestafb</code><br>(<a href="#the-detailed-contents-in-v2abrakestafbvehicle-to-autonomous-driving-braking-status-feedback-are-as-follows">pix_hooke_driver_msgs/msg/V2aBrakeStaFb</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的转向状态反馈</td>
+<td><code>/pix_hooke/v2a_steerstafb</code><br>(<a href="#the-detailed-contents-in-v2asteerstafbvehicle-to-autonomous-driving-steering-status-feedback-are-as-follows">pix_hooke_driver_msgs/msg/V2aSteerStaFb</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的车辆工作状态反馈</td>
+<td><code>/pix_hooke/v2a_vehicleworkstafb</code><br>(<a href="#the-detailed-contents-in-v2avehicleworkstafbvehicle-to-autonomous-driving-vehicle-work-status-feedback-are-as-follows">pix_hooke_driver_msgs::msg::V2aVehicleWorkStaFb</a>)</td>
+<td></td>
+</tr>
+<tr>
+<td>车辆发送到自动驾驶的车辆状态反馈</td>
+<td><code>/pix_hooke/v2a_vehiclestafb</code><br>(<a href="#the-detailed-contents-in-v2avehiclestafbvehicle-to-autonomous-driving-vehicle-status-feedback-are-as-follows">pix_hooke_driver_msgs::msg::V2aVehicleStaFb</a>)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h3 id="_11">输出</h3>
+<table>
+<thead>
+<tr>
+<th>输出 (发送至Autoware)</th>
+<th>Topic(Data Type)</th>
+<th>Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>控制模式状态</td>
+<td><code>/vehicle/status/control_mode</code><br>(<a href="https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/ControlModeReport.idl">autoware_auto_vehicle_msgs/msg/ControlModeReport</a>)</td>
+<td>反馈给Autoware的车辆控制模式状态</td>
+</tr>
+<tr>
+<td>速度状态</td>
+<td><code>/vehicle/status/velocity_status</code><br>(<a href="https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/VelocityReport.idl">autoware_auto_vehicle_msgs/msg/ControlModeReport</a>)</td>
+<td>反馈给Autoware的车辆横向与纵向速度 [m/s]</td>
+</tr>
+<tr>
+<td>转向状态</td>
+<td><code>/vehicle/status/steering_status</code><br>(<a href="https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/SteeringReport.idl">autoware_auto_vehicle_msgs/msg/SteeringReport</a>)</td>
+<td>反馈给Autoware的车辆转向角 [rad]</td>
+</tr>
+<tr>
+<td>档位状态</td>
+<td><code>/vehicle/status/gear_status</code><br>(<a href="https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/GearReport.idl">autoware_auto_vehicle_msgs/msg/GearReport</a>)</td>
+<td>反馈给Autoware的车辆档位状态 [-]</td>
+</tr>
+<tr>
+<td>转向灯信号状态</td>
+<td><code>/vehicle/status/turn_indicators_status</code><br>(<a href="https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/TurnIndicatorsReport.idl">autoware_auto_vehicle_msgs/msg/TurnIndicatorsReport</a>)</td>
+<td>反馈给Autoware的转向灯信号状态 [-]</td>
+</tr>
+<tr>
+<td>紧急灯光状态</td>
+<td><code>/vehicle/status/hazard_lights_status</code><br>(<a href="https://github.com/tier4/autoware_auto_msgs/blob/tier4/main/autoware_auto_vehicle_msgs/msg/HazardLightsReport.idl">autoware_auto_vehicle_msgs::msg::HazardLightsReport</a>)</td>
+<td>反馈给Autoware的紧急灯光状态 [-]</td>
+</tr>
+<tr>
+<td>执行状态</td>
+<td><code>/vehicle/status/actuation_status</code><br><a href="https://github.com/tier4/tier4_autoware_msgs/blob/tier4/universe/tier4_vehicle_msgs/msg/ActuationStatusStamped.msg">tier4_vehicle_msgs/msg/ActuationStatusStamped</a></td>
+<td>为了<a href="https://github.com/autowarefoundation/autoware.universe/tree/main/vehicle/accel_brake_map_calibrator/accel_brake_map_calibrator">车辆动力学标定</a>反馈给Autoware的车辆加速踏板、制动踏板和转向状态 [0-100]</td>
+</tr>
+</tbody>
+</table>
+<h2 id="_12">参考资料</h2>
+<ul>
+<li><a href="https://github.com/pixmoving-moveit/pix_driver">pix_driver</a></li>
+<li><a href="https://github.com/tier4/tier4_autoware_msgs/tree/tier4/universe/tier4_vehicle_msgs">tier4_autoware_msgs/tier4_vehicle_msgs</a></li>
+<li><a href="https://github.com/tier4/autoware_auto_msgs">autoware_auto_msgs</a></li>
+<li><a href="https://github.com/autowarefoundation/ros2_socketcan/tree/1.1.0">ros2_socketcan</a></li>
+</ul></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.path", "navigation.top"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.ad660dcc.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
